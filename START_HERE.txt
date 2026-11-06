@@ -1,5 +1,6 @@
-1. index.html: 학생용 완성 템플릿. 더블클릭으로 확인.
-2. lab.html: 50분 실습 안내.
-3. 기존 GitHub 저장소 루트에 index.html 업로드.
-4. README는 기존 파일을 덮어쓰지 말고 내용을 합치세요.
-5. instructor/index.html: 강사 예시, advanced/: 심화 분리본.
+1. templates.html: 세 가지 디자인 비교 및 선택.
+2. templates/cosmos/index.html: 우주형 / templates/studio/index.html: 밝은 전시형 / templates/arcade/index.html: 네온 게임형.
+3. 선택한 index.html 한 개만 학생 개인 저장소 최상위에 업로드.
+4. 파일 맨 위 MY_PROFILE의 6개 항목 수정.
+5. lab.html: 50분 실습 안내.
+6. GitHub Pages 설정: main / (root).

@@ -43,3 +43,6 @@
 
 ## 배포 범위
 이 패키지는 GitHub Pages에 업로드할 수 있는 정적 소스입니다. 이번 작업의 별도 미리보기 호스팅은 GitHub Pages 등록 성공을 의미하지 않습니다. 사용자가 GitHub 저장소를 생성했고, 배포용 파일을 연결된 GitHub 도구로 등록합니다. GitHub Pages는 별도 설정이 필요하며 실제 배포 성공 후 확인합니다.
+
+## 디자인 선택 수업 운영
+0–5분에 templates.html에서 3가지 디자인을 비교하고 하나만 고릅니다. Cosmos는 우주형, Creative Studio는 밝은 전시형, Next Level은 네온 게임형입니다. 디자인을 고르는 데 3분 이상 쓰지 않도록 안내합니다. 파일은 모두 index.html이며, 수정할 MY_PROFILE 항목과 Commit·Pages 절차는 동일합니다. 게임형도 성장 기록은 계획이며 실제 완료 이력을 자동 조회하지 않습니다.

@@ -9,13 +9,17 @@
 - 실명, 전화번호, 개인 이메일, 학생번호를 넣지 않습니다. 닉네임과 공개할 작품 정보만 사용합니다.
 - 기본 파일은 ZIP 루트의 `index.html` 하나입니다. 더블클릭으로 브라우저에서 미리 볼 수 있습니다.
 
-## 0–5분 · 완성 화면 둘러보기
+## 0–5분 · 디자인 선택 및 완성 화면 둘러보기
+[디자인 3종 선택 페이지](../templates.html)에서 Cosmos / Creative Studio / Next Level 중 하나를 고릅니다. 각 카드의 “이 디자인 받기”를 누르면 index.html을 받습니다. 브라우저가 index (1).html로 저장하면 index.html로 바꿉니다.
+
+세 디자인 모두 MY_PROFILE 항목과 실습 순서가 같습니다. 디자인을 교체할 때는 MY_PROFILE의 자기소개 데이터를 새 템플릿에 옮깁니다.
+
 강사 예시에서 프로젝트 상세창과 테마 버튼을 눌러 봅니다. 예시는 완성 작품이 아니라 앞으로 만들고 싶은 프로젝트입니다.
 
 ## 5–10분 · 내 저장소에 추가하기
 1. ZIP 압축을 풉니다. ZIP 자체를 GitHub에 올리지 않습니다.
 2. 기존 `my-xr-universe` 저장소 → Add file → Upload files.
-3. ZIP 루트의 `index.html`을 업로드합니다. `student/` 폴더째 올리지 않습니다.
+3. 선택한 디자인의 `index.html`을 업로드합니다. `student/` 폴더째 올리지 않습니다.
 4. `Add XR portfolio template` 메시지로 Commit changes.
 5. Code 탭에서 README.md와 같은 위치에 소문자 `index.html`이 있는지 확인합니다.
 

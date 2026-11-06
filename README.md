@@ -15,9 +15,17 @@ XR 포트폴리오 · GitHub 실습 템플릿
 현재 상태: 기획 중. 다른 두 프로젝트 카드는 참고 아이디어입니다.
 
 ## Website
-GitHub Pages 활성화 대기 상태입니다. Settings → Pages에서 main / (root)를 선택한 뒤 표시되는 실제 주소로 접속하세요.
+공개 홈페이지: https://chloeislovely.github.io/my-xr-universe/
 
-- [학생용 원본](student/index.html)
+디자인 선택: https://chloeislovely.github.io/my-xr-universe/templates.html
+
+세 디자인 모두 단일 HTML 파일이며 같은 MY_PROFILE 6개 항목을 수정합니다.
+
+- [디자인 3종 선택](templates.html)
+- [Cosmos](templates/cosmos/index.html): 네이비·우주형
+- [Creative Studio](templates/studio/index.html): 크림색·전시형
+- [Next Level](templates/arcade/index.html): 네온·게임형
+- [기존 학생용 원본](student/index.html)
 - [실습 시작 페이지](lab.html)
 - [강사 예시](instructor/index.html)
 
