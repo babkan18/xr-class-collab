@@ -14,6 +14,13 @@ XR 포트폴리오 · GitHub 실습 템플릿
 나만의 가상 학교 전시관 — 학생들의 작품을 가상 공간에 전시하는 프로젝트.
 현재 상태: 기획 중. 다른 두 프로젝트 카드는 참고 아이디어입니다.
 
+## 3교시 수업 자료
+
+- [수업 시작](https://chloeislovely.github.io/my-xr-universe/course.html)
+- [웹워크북](https://chloeislovely.github.io/my-xr-universe/workbook.html)
+- [웹프롬프트북](https://chloeislovely.github.io/my-xr-universe/promptbook.html)
+- [협업 미션](collaboration/README.md)
+
 ## Website
 공개 홈페이지: https://chloeislovely.github.io/my-xr-universe/
 
