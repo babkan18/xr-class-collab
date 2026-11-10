@@ -1,17 +1,463 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>웹워크북 · MY XR UNIVERSE</title><link rel="stylesheet" href="course/style.css"></head><body><a class="skip" href="#main">본문 바로가기</a><header><nav><strong>MY XR UNIVERSE</strong><a href="course.html" >수업 홈</a><a href="workbook.html" aria-current="page">웹워크북</a><a href="promptbook.html" >프롬프트북</a><a href="templates.html" >디자인 3종</a></nav></header><main id="main"><span class="eyebrow">MY FIELD NOTES</span><h1>나의 XR 제작 기록</h1><p class="lead">생각하고, 바꾸고, 확인한 과정을 남깁니다.</p><div class="callout">이 브라우저에 자동 저장됩니다. 서버나 강사에게 자동 제출되지 않습니다. 공용 PC에서는 JSON 백업 후 초기화하세요. 제출할 때는 비공개 정보가 없는지 확인합니다.</div><div class="actions"><button id="export" class="primary">JSON 백업</button><button id="importBtn">백업 불러오기</button><input id="importFile" type="file" accept="application/json,.json" hidden><button id="print">인쇄 / PDF 저장</button><button id="reset">내 기록 초기화</button></div><div id="notice" role="status" aria-live="polite"></div><div id="saveState" role="status">작성 준비 완료</div><p id="progressLabel"></p><progress id="progress" max="12" value="0"></progress><div class="tabs"><a href="#m1">01 탐색과 기록</a><a href="#m2">02 AI와 협업</a><a href="#m3">03 제작과 공개</a></div><section class="mission" id="m1"><span class="eyebrow">MISSION 01 · 1교시</span><h2>나의 관심을 기록하기</h2><p>프롬프트 P01·P02를 참고해 관심 분야와 README를 작성합니다.</p><div class="formgrid"><label class="field">닉네임<input id="nickname" data-save placeholder="NOVA" maxlength="250" autocomplete="off"></label><label class="field">GitHub 사용자명<input id="githubUsername" data-save placeholder="예: xr-nova (주소 전체 아님)" maxlength="250" autocomplete="off"></label><label class="field">좋아하는 것<input id="interest" data-save placeholder="게임 공간, 전시, 스포츠…" maxlength="250" autocomplete="off"></label><label class="field">한 줄 소개<input id="tagline" data-save placeholder="현실과 가상을 연결하는 XR 크리에이터" maxlength="250" autocomplete="off"></label><label class="field">관심 분야<select id="focus" data-save><option>VR</option><option>AR</option><option>3D</option></select></label><label class="field">관심 기술 3가지<input id="tech" data-save placeholder="Unity, Blender, WebXR" maxlength="250" autocomplete="off"></label></div><h3>GitHub 첫 기록</h3><ol><li>GitHub 로그인 후 New repository를 엽니다.</li><li>이름 <code>my-xr-universe</code>, Public, Add README를 선택합니다. 이미 있으면 기존 저장소를 엽니다.</li><li>README의 연필 버튼으로 닉네임, 관심 분야, 만들고 싶은 것을 씁니다.</li><li>Commit changes에서 <code>나의 XR 관심 분야 소개 추가</code>처럼 변경 내용을 남깁니다.</li></ol><label class="field">내 저장소 주소<input id="repoUrl" data-save placeholder="https://github.com/내아이디/my-xr-universe" maxlength="250" autocomplete="off"></label><label class="check"><input type="checkbox" data-save id="c1"><span>내 계정으로 저장소를 만들었다</span></label><label class="check"><input type="checkbox" data-save id="c2"><span>README에 나의 관심을 썼다</span></label><label class="check"><input type="checkbox" data-save id="c3"><span>Commit 메시지와 변경 기록을 확인했다</span></label></section><section class="mission" id="m2"><span class="eyebrow">MISSION 02 · 2교시</span><h2>AI 제안을 검토하고 함께 개선하기</h2><div class="formgrid"><label class="field">프로젝트 제목<input id="projectTitle" data-save placeholder="나만의 가상 학교 전시관" maxlength="250" autocomplete="off"></label><label class="field">누구를 위한 것인가?<input id="audience" data-save placeholder="학교 작품을 보러 온 신입생" maxlength="250" autocomplete="off"></label><label class="field">어떤 불편이 있는가?<textarea id="problem" data-save placeholder="다른 학과의 작품을 볼 기회가 적다" maxlength="1500"></textarea></label><label class="field">어떤 경험을 만드는가?<textarea id="description" data-save placeholder="가상 전시관에서 작품을 선택하면 설명을 본다" maxlength="1500"></textarea></label><label class="field">첫 번째 작은 실험<textarea id="experiment" data-save placeholder="종이에 전시관 화면을 그리고 친구에게 동선을 물어본다" maxlength="1500"></textarea></label><label class="field">협업 번호<select id="studentNo" data-save><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option></select><small>강사가 배정한 번호를 선택하세요. 학번을 입력하지 않습니다.</small></label></div><p><a href="https://github.com/chloeisLovely/my-xr-universe/issues/1" target="_blank" rel="noopener">공동 미션 Issue #1 열기</a></p><details open><summary>Fork와 PR 실습 순서</summary><ol><li>강사 저장소에서 Fork를 누릅니다. Owner는 내 계정, 이름은 <code>xr-class-collab</code>로 바꿉니다. 기존 개인 저장소와 구분합니다.</li><li>내 Fork의 main 메뉴에서 <code>idea-01</code>처럼 내 번호의 브랜치를 만듭니다.</li><li><code>collaboration/ideas/student-01.md</code>처럼 내 번호 파일의 연필 버튼을 누르고 P05 초안을 직접 검토해 넣습니다.</li><li>내 작업 브랜치에 Commit합니다.</li><li>Contribute / Open pull request 또는 Compare &amp; pull request를 엽니다. base는 <code>chloeisLovely/my-xr-universe:main</code>, head는 <code>내계정/xr-class-collab:idea-내번호</code>입니다.</li><li>Files changed에서 내 파일 하나인지 확인합니다. 본문에 <code>Refs #1</code>과 검토 요청을 쓰고 Create pull request를 누릅니다.</li><li>친구 PR을 읽고 구체적 질문을 남깁니다. Merge는 강사가 진행합니다.</li></ol></details><label class="field">내 Pull Request 주소<input id="prUrl" data-save placeholder="https://github.com/chloeisLovely/my-xr-universe/pull/…" maxlength="250" autocomplete="off"></label><label class="field">친구의 피드백<textarea id="review" data-save placeholder="좋았던 점과 개선할 점" maxlength="1500"></textarea></label><label class="check"><input type="checkbox" data-save id="c4"><span>AI 제안 중 고칠 부분을 찾아 직접 수정했다</span></label><label class="check"><input type="checkbox" data-save id="c5"><span>내 번호 파일 하나만 수정하고 Commit했다</span></label><label class="check"><input type="checkbox" data-save id="c6"><span>올바른 원본 저장소로 PR을 보냈다</span></label><label class="check"><input type="checkbox" data-save id="c7"><span>친구의 아이디어를 읽고 피드백을 주었다</span></label></section><section class="mission" id="m3"><span class="eyebrow">MISSION 03 · 3교시</span><h2>나의 홈페이지 공개하기</h2><p><a href="templates.html" target="_blank" rel="noopener">디자인 3종 비교하기</a> · 수정할 내용은 모두 같습니다.</p><label class="field">선택한 디자인<select id="design" data-save><option>Cosmos</option><option>Creative Studio</option><option>Next Level</option></select></label><ol><li>선택한 HTML을 내려받고 파일명을 <code>index.html</code>로 확인합니다.</li><li>텍스트 편집기로 열어 맨 위 <code>MY_PROFILE</code> 6개 항목만 수정합니다. P08을 참고합니다.</li><li>저장 후 브라우저로 열어 닉네임, 프로젝트, 버튼을 확인합니다.</li><li>개인 <code>my-xr-universe</code> 저장소 최상위에 index.html을 업로드하고 Commit합니다.</li><li>Settings / Pages / Deploy from a branch / main / (root) / Save를 선택합니다.</li><li>Actions가 성공한 뒤 Visit site를 엽니다. 반영에 최대 10분 정도 걸릴 수 있어 기다리는 동안 친구 작품을 검토합니다.</li></ol><label class="field">공개 홈페이지 주소<input id="siteUrl" data-save placeholder="https://내아이디.github.io/my-xr-universe/" maxlength="250" autocomplete="off"></label><label class="check"><input type="checkbox" data-save id="c8"><span>MY_PROFILE 6개 항목을 나의 내용으로 바꿨다</span></label><label class="check"><input type="checkbox" data-save id="c9"><span>개인 저장소 최상위 index.html로 업로드했다</span></label><label class="check"><input type="checkbox" data-save id="c10"><span>실제 공개 웹 주소가 열린다</span></label><label class="check"><input type="checkbox" data-save id="c11"><span>PC와 모바일에서 글자·버튼·링크를 확인했다</span></label><label class="check"><input type="checkbox" data-save id="c12"><span>작품 설명과 다음 실험을 친구에게 소개했다</span></label><label class="field">내가 배운 점과 다음 행동<textarea id="reflection" data-save placeholder="오늘 실제로 바꾼 점 / 다음에 해 볼 일" maxlength="1500"></textarea></label><p class="muted">오늘 만든 결과는 XR 아이디어를 소개하는 웹 포트폴리오입니다. VR/AR 실행 기능 자체는 후속 프로젝트입니다.</p></section><section><h2>막혔을 때 확인할 곳</h2><details><summary>닉네임이 바뀌지 않거나 화면이 이상해요</summary><p>파일 저장 여부, MY_PROFILE의 따옴표·쉼표·중괄호를 확인합니다. 브라우저를 새로고침하고 오류 메시지가 있으면 P09를 사용합니다. 전체 HTML을 AI 답변으로 덮어쓰지 않습니다.</p></details><details><summary>404 / 이전 화면 / README가 보여요</summary><p>내 개인 저장소의 main 최상위에 소문자 index.html이 있는지 확인합니다. 파일명이 index.html.txt가 아닌지 확인하고 Pages가 main/(root)인지 봅니다. Actions가 진행 중이면 기다린 뒤 강력 새로고침합니다. 저장소 주소와 github.io 웹 주소는 다릅니다.</p></details><details><summary>Fork를 만들 수 없어요</summary><p>내 포트폴리오와 같은 이름을 쓰지 않도록 Fork 이름을 xr-class-collab으로 바꿉니다. 이미 만든 Fork가 있으면 재사용합니다. 계정 제한이 있으면 짝과 함께 관찰하고 Markdown 파일을 로컬로 작성합니다.</p></details><details><summary>수업 시간 안에 배포가 끝나지 않아요</summary><p>파일을 브라우저에서 연 화면을 먼저 확인하고 저장소와 작성 기록을 제출합니다. 공개 주소 검증은 배포가 끝난 뒤 체크합니다. 아직 안 된 것을 완료로 표시하지 않습니다.</p></details></section></main><footer>AI × GitHub × XR · 50분 × 3교시 · 닉네임으로 만들고, 근거를 확인하고, 나의 변화 기록하기</footer><script>
-const KEY='xr-course-workbook-v1',nodes=[...document.querySelectorAll('[data-save]')];
-const notice=document.getElementById('notice'),saveState=document.getElementById('saveState');
-const read=()=>Object.fromEntries(nodes.map(n=>[n.id,n.type==='checkbox'?n.checked:n.value]));
-function progress(){const n=nodes.filter(n=>n.type==='checkbox'&&n.checked).length;document.getElementById('progress').value=n;document.getElementById('progressLabel').textContent=`완료 체크 ${n} / 12`;}
-function apply(d){if(!d||typeof d!=='object'||Array.isArray(d))throw Error('형식');for(const n of nodes){if(!(n.id in d))continue;if(n.type==='checkbox'){if(typeof d[n.id]==='boolean')n.checked=d[n.id];}else if(typeof d[n.id]==='string'){n.value=d[n.id].slice(0,n.maxLength>0?n.maxLength:1500);}}progress();}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(read()));saveState.textContent='이 브라우저에 저장됨 · '+new Date().toLocaleTimeString('ko-KR');}catch(e){saveState.textContent='자동 저장이 제한되었습니다. JSON 백업을 이용하세요.';}progress();}
-try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');apply(d);}catch(e){notice.textContent='이전 기록을 읽지 못했습니다. 백업 파일이 있으면 불러오세요.';}progress();
-nodes.forEach(n=>n.addEventListener('input',save));
-document.getElementById('export').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({version:1,data:read()},null,2)],{type:'application/json'}));a.download='MY_XR_WORKBOOK.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);notice.textContent='백업 파일 다운로드를 요청했습니다. 다운로드 폴더를 확인하세요.';};
-document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
-document.getElementById('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(f.size>1000000){notice.textContent='1MB 이하의 워크북 JSON 파일을 선택하세요.';return;}try{const d=JSON.parse(await f.text());if(d.version!==1||!d.data||Array.isArray(d.data)||typeof d.data!=='object')throw Error();if(confirm('현재 기록을 백업 내용으로 바꿀까요?')){nodes.forEach(n=>n.type==='checkbox'?n.checked=false:n.value=n.tagName==='SELECT'?n.options[0].value:'');apply(d.data);save();notice.textContent='백업을 불러왔습니다.';}}catch(err){notice.textContent='올바른 워크북 백업 파일이 아닙니다.';}e.target.value='';};
-document.getElementById('reset').onclick=()=>{if(confirm('이 브라우저의 작성 기록을 초기화할까요? 먼저 JSON 백업을 권장합니다.')){nodes.forEach(n=>n.type==='checkbox'?n.checked=false:n.value=n.tagName==='SELECT'?n.options[0].value:'');save();notice.textContent='기록을 초기화했습니다.';}};
-document.getElementById('print').onclick=()=>window.print();
-window.addEventListener('beforeprint',()=>{for(const n of nodes.filter(n=>n.type!=='checkbox')){const p=document.createElement('div');p.className='print-value';p.textContent=n.value||'(미작성)';n.after(p);n.classList.add('hidden');}});
-window.addEventListener('afterprint',()=>{document.querySelectorAll('.print-value').forEach(n=>n.remove());nodes.forEach(n=>n.classList.remove('hidden'));});
-</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MY XR UNIVERSE 워크북</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Orbit&display=swap">
+<style>
+/* Layout: 왼쪽 미션 레일 + 오른쪽 노트 본문. 좁은 화면에서는 상단 칩 내비로 접힘 */
+:root{
+  --bg:#F4F6FA; --surface:#FFFFFF; --sunk:#EDF1F7; --ink:#14213D; --muted:#5B6680; --line:#D8DFEB;
+  --p0:#2F5BD3; --p1:#0E8C7F; --p2:#6A4CE0; --p3:#D94F2A; --tch:#55607A;
+  --p0-soft:#E6EDFC; --p1-soft:#E1F4F1; --p2-soft:#EDE9FC; --p3-soft:#FCEAE4;
+  --add:#1A7F37; --add-soft:#DAFBE1; --del:#CF222E; --del-soft:#FFEBE9;
+  --code-bg:#101A2E; --code-fg:#E4EAF5; --code-key:#7EE2D2; --code-str:#FFC98B; --code-pun:#9AA8C2;
+  --focus:#2F5BD3;
+  --f-display:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-brand:"Orbit","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --r:10px; --gap:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--f-body);margin:0;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--p0)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+h1,h2,h3{line-height:1.3;text-wrap:balance;margin:0}
+code,kbd,pre{font-family:var(--f-mono);font-size:.92em}
+p code,li code,td code{background:var(--sunk);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--surface)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;min-height:60px;padding-block:8px;flex-wrap:wrap}
+.brand{font-family:var(--f-brand);font-weight:400;letter-spacing:.04em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand i{width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--accent)}
+.books{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.books a{font-size:13px;text-decoration:none;color:var(--muted);padding:6px 11px;border-radius:999px;border:1px solid transparent}
+.books a:hover{color:var(--ink);border-color:var(--line)}
+.books a[aria-current="page"]{color:var(--accent);border-color:var(--accent);font-weight:600}
+
+/* hero */
+.hero{padding-block:44px 28px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,50px);letter-spacing:-.025em;margin:10px 0 12px}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:62ch;margin:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+
+/* period tags */
+.tag{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.t0{background:var(--p0-soft);color:var(--p0)} .t1{background:var(--p1-soft);color:var(--p1)}
+.t2{background:var(--p2-soft);color:var(--p2)} .t3{background:var(--p3-soft);color:var(--p3)}
+
+/* two-col shell */
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;align-items:start;padding-block:8px 64px}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:flex;flex-direction:column;gap:2px}
+.rail a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--muted);font-size:14px;padding:8px 10px;border-radius:8px}
+.rail a:hover{background:var(--surface);color:var(--ink)}
+.rail a.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 0 0 1px var(--line)}
+.rail .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--line)}
+.rail .lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);padding:14px 10px 6px;text-transform:uppercase}
+main{min-width:0}
+
+section.block{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px clamp(18px,3vw,34px);margin-bottom:22px;scroll-margin-top:90px}
+.block-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.block h2{font-size:clamp(21px,2.6vw,26px)}
+.block .goal{color:var(--muted);margin:6px 0 18px;max-width:68ch}
+.block h3{font-size:17px;margin:26px 0 10px}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:var(--sunk);border-radius:10px;padding:14px 16px;font-size:15px;margin:16px 0}
+.callout .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:var(--accent);color:var(--surface)}
+.callout.warn .ic{background:var(--p3)}
+.callout p{margin:0}
+
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;min-width:0}
+.field label,.field .lab{font-weight:600;font-size:15px}
+.field .hint{font-size:13px;color:var(--muted)}
+input[type=text],input[type=url],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:8px;border:1px solid var(--line);margin-bottom:8px;cursor:pointer;background:var(--bg)}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+.check.done{border-color:var(--accent);background:var(--surface)}
+.check span small{display:block;color:var(--muted);font-size:13px}
+
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.primary:hover{filter:brightness(1.07);color:var(--surface)}
+.btn.small{font-size:13px;padding:6px 11px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* code */
+.code{background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.75;margin:0;white-space:pre}
+.code .k{color:var(--code-key)} .code .s{color:var(--code-str)} .code .p{color:var(--code-pun)} .code .c{color:#7C8AA6}
+.codewrap{position:relative;margin-bottom:18px}
+.codewrap .btn{position:absolute;top:10px;right:10px;background:#1E2A44;color:#E4EAF5;border-color:#33425F}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:14px;z-index:50;max-width:calc(100% - 32px)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:13px;color:var(--muted);font-weight:600}
+.tblwrap{overflow-x:auto}
+
+footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding-block:24px 40px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;flex-direction:row;overflow-x:auto;background:var(--bg);padding-block:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+  .rail .lbl{display:none}
+  .rail a{white-space:nowrap;flex:none}
+  .topbar{position:relative;top:0}
+}
+@media (max-width:620px){
+  .grid2,.grid4{grid-template-columns:minmax(0,1fr)}
+  .books{margin-left:0}
+  .hero{padding-block:28px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  .topbar,.rail,.no-print,.toast{display:none!important}
+  .shell{display:block} section.block{break-inside:avoid;border-color:#bbb}
+  body{background:#fff;color:#000}
+}
+
+:root{--accent:var(--p1)}
+.progress{display:flex;align-items:center;gap:14px;margin-top:22px;max-width:520px}
+.bar{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.progress b{font-family:var(--f-mono);font-size:14px;min-width:4.5em;text-align:right}
+.mission-no{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.quiz{display:flex;flex-direction:column;gap:8px}
+.q{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.q .n{font-family:var(--f-mono);font-weight:600;color:var(--muted)}
+.q .ox{display:flex;gap:6px}
+.q .ox button{width:42px;height:36px;border-radius:7px;border:1px solid var(--line);background:var(--surface);font:inherit;font-weight:700;color:var(--ink);cursor:pointer}
+.q .ox button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.q .fb{grid-column:2/4;font-size:14px;color:var(--muted)}
+.q .fb.ok{color:var(--add)} .q .fb.no{color:var(--del)}
+.summary{background:var(--sunk);border-radius:10px;padding:16px 18px;font-family:var(--f-mono);font-size:14px;white-space:pre-wrap;word-break:break-all;margin:0 0 12px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--del-soft);color:var(--del);font-size:14px;margin-top:10px}
+.designs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.designs label{border:1px solid var(--line);border-radius:10px;padding:14px;cursor:pointer;background:var(--bg);display:flex;flex-direction:column;gap:4px}
+.designs input{accent-color:var(--accent)}
+.designs label.on{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 1px var(--accent)}
+.designs b{font-size:15px}.designs small{color:var(--muted);font-size:13px}
+.sw{display:flex;gap:4px;margin:4px 0}.sw i{width:18px;height:18px;border-radius:4px;display:block}
+@media (max-width:620px){.designs{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="course.html"><i>✳</i>MY XR UNIVERSE</a>
+  <nav class="books" aria-label="수업 자료">
+    <a href="course.html">수업 홈</a><a href="workbook.html" aria-current="page">워크북</a><a href="promptbook.html">프롬프트북</a><a href="guide.html">GitHub 활용하기</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Workbook · 나의 제작 노트</div>
+    <h1>오늘 만든 것을<br>한 곳에 남기기</h1>
+    <p class="lead">세 교시 동안 만든 저장소, Pull Request, 홈페이지 주소와 내가 바꾼 이유를 기록합니다. 입력한 내용은 이 브라우저에 자동 저장되며, 마지막에 제출 내용을 한 번에 복사할 수 있습니다.</p>
+    <div class="meta-row">
+      <span class="pill">안양공업고등학교 XR과</span>
+      <span class="pill"><b>2026. 11. 11.</b> 13:50–16:40</span>
+      <span class="pill" id="who">닉네임 미입력</span>
+    </div>
+    <div class="progress" aria-label="진행률"><div class="bar"><span id="barfill"></span></div><b id="pct">0%</b></div>
+  </div>
+
+  <div class="shell">
+    <nav class="rail" id="rail" aria-label="미션 목록">
+      <div class="lbl">미션</div>
+    </nav>
+    <main id="missions"></main>
+  </div>
+</div>
+<footer class="foot"><div class="wrap">입력 내용은 이 기기·이 브라우저에만 저장됩니다. 공용 PC라면 수업 후 백업한 뒤 「모두 지우기」를 눌러 주세요. 실명·연락처·학번은 적지 않습니다.</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(() => {
+'use strict';
+const KEY = 'xr-workbook-v1';
+let data = {};
+try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { data = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
+const framed = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let toastT;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,2600); }
+async function copy(text, okMsg){
+  try { await navigator.clipboard.writeText(text); toast(okMsg || '복사했습니다.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=text; document.body.append(ta); ta.select(); let ok=false; try{ok=document.execCommand('copy');}catch(_){} ta.remove(); toast(ok?(okMsg||'복사했습니다.'):'복사가 막혀 있습니다. 내용을 직접 선택해 복사하세요.'); }
+}
+
+/* ---------- 미션 정의 ---------- */
+const M = [
+ {id:'m0', tag:'t0', tagText:'수업 시작 전', no:'M0', title:'준비 · 계정과 닉네임', goal:'수업 중 막히지 않도록 계정 상태를 먼저 확인합니다. 아이디는 앞으로 내 홈페이지 주소가 됩니다.', items:[
+  {t:'check', id:'login', label:'GitHub에 로그인했다'},
+  {t:'check', id:'mail', label:'이메일 인증을 마쳤다', sub:'가입할 때 받은 메일의 인증 버튼. 인증 전에는 저장소 생성이 막힐 수 있습니다.'},
+  {t:'check', id:'tfa', label:'2단계 인증 안내가 나오면 설정했다 (나오지 않으면 체크)', sub:'휴대폰 인증 앱 또는 문자로 설정합니다. 복구 코드는 따로 보관하세요.'},
+  {t:'row', items:[
+   {t:'text', id:'ghid', label:'나의 GitHub 아이디', hint:'주소 전체가 아니라 아이디만. 예: nova-xr', ph:'my-github-id', req:1},
+   {t:'text', id:'nick', label:'수업용 닉네임', hint:'실명 대신 사용할 이름', ph:'NOVA', req:1}]},
+  {t:'select', id:'focus', label:'가장 끌리는 XR 분야', opts:['VR','AR','3D'], hint:'VR 가상 공간 안으로 · AR 현실 위에 정보 더하기 · 3D 입체 자료 만들기'}
+ ]},
+ {id:'m1', tag:'t1', tagText:'1교시 · 기록', no:'M1', title:'내 관심이 담긴 README', goal:'나의 저장소를 만들고, README에 나를 소개하고, 첫 Commit을 남깁니다.', items:[
+  {t:'url', id:'repo', label:'내 저장소 주소', hint:'github.com/아이디/my-xr-universe', ph:'https://github.com/my-github-id/my-xr-universe', req:1, fill:id=>`https://github.com/${id}/my-xr-universe`},
+  {t:'area', id:'readme', label:'README에 쓴 소개 (3~5줄)', ph:'닉네임: NOVA\n관심 분야: VR\n아이디어: 교내 작품 가상 전시관\n현재 상태: 기획 중', req:1},
+  {t:'text', id:'c1', label:'첫 Commit 메시지', hint:'무엇을 바꿨는지 한 문장. 예: README에 XR 관심 분야 소개 추가', ph:'README에 XR 관심 분야 소개 추가', req:1},
+  {t:'check', id:'hist', label:'History에서 내 Commit을 열고 바뀐 줄(초록·빨강)을 확인했다'},
+  {t:'h', text:'짝 미션 · 30초 안에 알아맞히기'},
+  {t:'row', items:[
+   {t:'text', id:'vague', label:'모호했던 문장', ph:'멋진 전시관을 만들고 싶다'},
+   {t:'text', id:'clear', label:'구체적으로 바꾼 문장', ph:'신입생이 다른 학과 작품을 찾는 가상 전시관'}]},
+  {t:'quiz', id:'q1', items:[
+   ['README는 프로젝트를 소개하는 문서다.', 'O', '맞아요. 처음 온 사람이 가장 먼저 읽는 안내문입니다.'],
+   ['파일을 편집하면 Commit이 항상 자동으로 생성된다.', 'X', '편집만으로는 기록되지 않습니다. Commit changes를 눌러야 변경이 남습니다.'],
+   ['Public 저장소는 누구나 원본을 수정할 수 있다.', 'X', '누구나 볼 수는 있지만, 원본 수정은 권한이 있는 사람만 합니다. 다른 사람은 Pull Request로 제안합니다.']]}
+ ]},
+ {id:'m2', tag:'t2', tagText:'2교시 · 협업', no:'M2', title:'친구에게 보낸 Pull Request', goal:'AI와 아이디어를 구체화하고, 수업 저장소에 내 아이디어 파일을 제안합니다.', items:[
+  {t:'h', text:'아이디어 카드'},
+  {t:'row', items:[
+   {t:'text', id:'target', label:'대상 · 누가 사용할까?', ph:'처음 학교에 온 신입생'},
+   {t:'text', id:'pain', label:'불편 · 무엇이 불편할까?', ph:'다른 학과 작품을 볼 기회가 없다'}]},
+  {t:'row', items:[
+   {t:'text', id:'xrexp', label:'XR 경험 · 무엇을 하게 될까?', ph:'가상 전시관에서 작품을 골라 설명을 본다'},
+   {t:'text', id:'exp', label:'첫 실험 · 오늘 확인할 수 있는 행동', ph:'종이 화면으로 친구가 작품을 찾는지 관찰'}]},
+  {t:'h', text:'AI 요청 다듬기 (프롬프트북 P03)'},
+  {t:'row', items:[
+   {t:'area', id:'pBefore', label:'넓은 요청', ph:'멋진 VR 학교를 만들어 줘.'},
+   {t:'area', id:'pAfter', label:'검토 가능한 요청', ph:'신입생이 다른 학과 작품을 찾도록 가상 전시관의 핵심 기능 1개를 제안해 줘. 초보자가 종이 화면으로 해 볼 실험과 확인 기준을 표로 써 줘.'}]},
+  {t:'h', text:'AI 답변 검토 (프롬프트북 P04)'},
+  {t:'row', items:[
+   {t:'text', id:'keep', label:'유지할 점 1개', ph:'핵심 기능을 하나로 좁힌 점'},
+   {t:'text', id:'fix', label:'고칠 점 1개', ph:'“모든 기기에서 작동” 같은 근거 없는 단정'}]},
+  {t:'text', id:'verify', label:'직접 확인이 필요한 것 1개', ph:'WebXR이 학교 태블릿에서 열리는지'},
+  {t:'h', text:'Fork · Branch · Pull Request'},
+  {t:'url', id:'fork', label:'내 Fork 주소', hint:'github.com/아이디/xr-class-collab', ph:'https://github.com/my-github-id/xr-class-collab', fill:id=>`https://github.com/${id}/xr-class-collab`},
+  {t:'check', id:'branch', label:'idea-01 브랜치에서 내 번호 파일(student-번호.md)만 수정했다'},
+  {t:'url', id:'pr', label:'내 Pull Request 주소', hint:'PR을 만든 뒤 주소창을 복사합니다. …/pull/숫자 로 끝납니다.', ph:'https://github.com/chloeisLovely/my-xr-universe/pull/3', req:1},
+  {t:'row', items:[
+   {t:'text', id:'gotfb', label:'친구에게 받은 피드백', ph:'어느 작품을 먼저 보나요?'},
+   {t:'text', id:'changed', label:'피드백 후 내가 고친 점', ph:'추천 작품 3개를 먼저 보여 주도록 수정'}]},
+  {t:'quiz', id:'q2', items:[
+   ['Fork는 별도 저장소, Branch는 저장소 안의 작업 흐름이다.', 'O', '맞아요. Fork는 내 계정에 생기는 복사 저장소, Branch는 한 저장소 안의 갈래입니다.'],
+   ['PR을 만들면 원본 main이 즉시 바뀐다.', 'X', 'PR은 “제안”입니다. 검토 후 Merge해야 반영됩니다.'],
+   ['Review 후 필요한 수정과 Merge를 결정한다.', 'O', '맞아요. 수정이 필요하면 같은 브랜치에 Commit을 더하면 PR에 자동으로 붙습니다.']]}
+ ]},
+ {id:'m3', tag:'t3', tagText:'3교시 · 공개', no:'M3', title:'내 내용이 보이는 웹 주소', goal:'디자인을 고르고, MY_PROFILE 여섯 곳을 바꾸고, GitHub Pages로 공개합니다.', items:[
+  {t:'design'},
+  {t:'text', id:'why', label:'이 디자인을 고른 이유 한 문장', ph:'우주 탐색 느낌이 VR 전시관 아이디어와 어울려서'},
+  {t:'profile'},
+  {t:'url', id:'site', label:'내 홈페이지 주소', hint:'Settings → Pages에 표시된 실제 주소를 복사하세요.', ph:'https://my-github-id.github.io/my-xr-universe/', req:1, fill:id=>`https://${id.toLowerCase()}.github.io/my-xr-universe/`},
+  {t:'h', text:'사용자처럼 테스트하기'},
+  {t:'check', id:'tPC', label:'PC · 제목과 문단이 잘리지 않는다'},
+  {t:'check', id:'tMob', label:'모바일 · 가로 스크롤 없이 읽힌다'},
+  {t:'check', id:'tFn', label:'기능 · 메뉴, 프로젝트 상세, 닫기 버튼이 작동한다'},
+  {t:'check', id:'tLink', label:'연결 · GitHub 버튼이 내 계정으로 간다'},
+  {t:'h', text:'문제 해결 기록 (생기지 않았다면 비워 두세요)'},
+  {t:'row', items:[
+   {t:'text', id:'bugSee', label:'관찰한 현상', ph:'404 페이지가 뜬다'},
+   {t:'text', id:'bugExp', label:'기대한 결과', ph:'내 홈페이지가 보여야 한다'}]},
+  {t:'row', items:[
+   {t:'text', id:'bugRecent', label:'최근에 바꾼 것', ph:'Index.html로 업로드함'},
+   {t:'text', id:'bugFix', label:'해결 방법', ph:'파일 이름을 소문자 index.html로 변경'}]}
+ ]},
+ {id:'m4', tag:'t0', tagText:'마무리', no:'M4', title:'다음 작품은 다음 Commit에서', goal:'친구 작품에서 배운 점과 다음 계획을 남기고, 제출 내용을 복사합니다.', items:[
+  {t:'text', id:'learn', label:'친구 작품에서 좋았던 선택', ph:'첫 화면에 대상이 바로 보이는 구성'},
+  {t:'text', id:'aiEdit', label:'AI 초안에서 내가 직접 고친 부분', ph:'“완벽하게 작동” 문장을 “PC에서 확인함”으로 수정'},
+  {t:'text', id:'next', label:'나의 다음 Commit', ph:'프로젝트 카드에 종이 실험 결과 추가', req:1},
+  {t:'submit'}
+ ]}
+];
+
+const DESIGNS = [
+  {v:'Cosmos', d:'네이비·민트 · 우주 탐색', c:['#0B1424','#73F4DE','#A594FF']},
+  {v:'Creative Studio', d:'크림·테라코타 · 작품 전시', c:['#F6EFE4','#D9643A','#2B2420']},
+  {v:'Next Level', d:'바이올렛·라임 · 게임 감성', c:['#1A1033','#C6FF3D','#8C5BFF']}
+];
+
+/* ---------- 렌더 ---------- */
+const reqIds = [];
+function fieldHTML(f){
+  const v = esc(data[f.id] ?? '');
+  if (f.req) reqIds.push(f.id);
+  const hint = f.hint ? `<span class="hint">${esc(f.hint)}</span>` : '';
+  if (f.t === 'text' || f.t === 'url') {
+    const fillBtn = f.fill ? `<button type="button" class="btn small no-print" data-fill="${f.id}">아이디로 채우기</button>` : '';
+    return `<div class="field"><label for="${f.id}">${esc(f.label)}</label>${hint}<div class="row" style="flex-wrap:nowrap"><input id="${f.id}" type="${f.t==='url'?'url':'text'}" placeholder="${esc(f.ph||'')}" value="${v}" autocomplete="off">${fillBtn}</div></div>`;
+  }
+  if (f.t === 'area') return `<div class="field"><label for="${f.id}">${esc(f.label)}</label>${hint}<textarea id="${f.id}" placeholder="${esc(f.ph||'')}">${v}</textarea></div>`;
+  if (f.t === 'select') return `<div class="field"><label for="${f.id}">${esc(f.label)}</label>${hint}<select id="${f.id}">${f.opts.map(o=>`<option${data[f.id]===o?' selected':''}>${o}</option>`).join('')}</select></div>`;
+  if (f.t === 'check') { reqIds.push(f.id); return `<label class="check${data[f.id]?' done':''}"><input type="checkbox" id="${f.id}"${data[f.id]?' checked':''}><span>${esc(f.label)}${f.sub?`<small>${esc(f.sub)}</small>`:''}</span></label>`; }
+  if (f.t === 'h') return `<h3>${esc(f.text)}</h3>`;
+  if (f.t === 'row') return `<div class="grid2">${f.items.map(fieldHTML).join('')}</div>`;
+  if (f.t === 'quiz') return `<h3>손가락 퀴즈 · O / X</h3><div class="quiz" data-quiz="${f.id}">${f.items.map((q,i)=>{const k=f.id+'_'+i; const a=data[k]; const fb=a?(a===q[1]?`<div class="fb ok">정답 · ${esc(q[2])}</div>`:`<div class="fb no">다시 생각해 봐요 · ${esc(q[2])}</div>`):'';
+      return `<div class="q" data-k="${k}" data-ans="${q[1]}" data-ex="${esc(q[2])}"><span class="n">${i+1}</span><span>${esc(q[0])}</span><span class="ox"><button type="button" data-v="O" aria-pressed="${a==='O'}">O</button><button type="button" data-v="X" aria-pressed="${a==='X'}">X</button></span>${fb}</div>`;}).join('')}</div>`;
+  if (f.t === 'design') return `<h3>디자인 고르기 · 30초</h3><div class="designs" role="radiogroup" aria-label="디자인 선택">${DESIGNS.map(d=>`<label class="${data.design===d.v?'on':''}"><span class="row"><input type="radio" name="design" value="${d.v}"${data.design===d.v?' checked':''}><b>${d.v}</b></span><span class="sw">${d.c.map(c=>`<i style="background:${c}"></i>`).join('')}</span><small>${d.d}</small></label>`).join('')}</div>`;
+  if (f.t === 'profile') return profileHTML();
+  if (f.t === 'submit') return `<h3>제출 내용</h3><p class="hint" style="color:var(--muted);margin:0 0 10px">강사가 안내한 곳에 그대로 붙여 넣습니다.</p><pre class="summary" id="summary"></pre>
+    <div class="tools no-print"><button type="button" class="btn primary" id="copySum">제출 내용 복사</button></div>
+    <h3>백업과 정리</h3>
+    <div class="tools no-print">
+      <button type="button" class="btn" id="copyJson">백업 코드 복사</button>
+      <button type="button" class="btn" id="dlJson">백업 파일 저장</button>
+      <label class="btn" for="loadFile">백업 파일 불러오기</label><input type="file" id="loadFile" accept="application/json,.json" hidden>
+      <button type="button" class="btn" id="printBtn">PDF로 인쇄</button>
+      <button type="button" class="btn" id="resetBtn">모두 지우기</button>
+    </div>
+    <div class="field no-print" style="margin-top:14px"><label for="pasteJson">백업 코드 붙여 넣어 복원</label><textarea id="pasteJson" placeholder='{"nick":"NOVA", …}' style="min-height:64px"></textarea><div><button type="button" class="btn small" id="restoreBtn">복원하기</button></div></div>
+    <div id="confirmBox" hidden></div>`;
+  return '';
+}
+function profileHTML(){
+  const f = (id,label,ph,hint)=>{ return `<div class="field"><label for="${id}">${label}</label>${hint?`<span class="hint">${hint}</span>`:''}<input id="${id}" type="text" placeholder="${esc(ph)}" value="${esc(data[id]??'')}" autocomplete="off"></div>`; };
+  reqIds.push('pTag','pTitle');
+  return `<h3>MY_PROFILE 만들기 · 여섯 곳</h3>
+  <div class="callout"><span class="ic">i</span><p>아래 칸을 채우면 코드가 자동으로 만들어집니다. 따옴표와 쉼표가 이미 맞춰져 있으니, 복사해서 index.html 맨 위 <code>const MY_PROFILE = { … };</code> 부분 전체와 바꾸면 됩니다. 닉네임·분야·아이디는 M0에서 가져옵니다.</p></div>
+  <div class="grid2">
+    ${f('pTag','② 한 줄 자기소개 (tagline)','가상 전시를 꿈꾸는 크리에이터')}
+    ${f('pTech','④ 관심 기술 3가지 (쉼표로 구분)','Unity, Blender, WebXR','Python, A-Frame도 가능')}
+    ${f('pTitle','⑤ 프로젝트 제목','교내 작품 가상 전시관')}
+    ${f('pDesc','⑤ 프로젝트 설명','작품을 선택하면 설명을 보는 공간')}
+  </div>
+  <div class="field"><label for="pStatus">⑤ 현재 상태</label><select id="pStatus">${['기획 중','제작 중','테스트 중','공개 완료'].map(o=>`<option${data.pStatus===o?' selected':''}>${o}</option>`).join('')}</select></div>
+  <div class="codewrap"><pre class="code" id="profileCode"></pre><button type="button" class="btn small no-print" id="copyProfile">코드 복사</button></div>`;
+}
+
+function buildProfile(){
+  const q = s => JSON.stringify(String(s ?? '').trim()).replace(/<\//g,'<\\/');
+  const tech = (data.pTech || 'Unity, Blender, WebXR').split(/[,，]/).map(s=>s.trim()).filter(Boolean).slice(0,3);
+  const lines = [
+    ['nickname', q(data.nick || 'XR Explorer')],
+    ['tagline', q(data.pTag || '현실과 가상을 연결하는 XR 크리에이터')],
+    ['focus', q(data.focus || 'VR')],
+    ['tech', '[' + tech.map(q).join(', ') + ']'],
+  ];
+  const plain = `const MY_PROFILE = {\n  nickname: ${lines[0][1]},\n  tagline: ${lines[1][1]},\n  focus: ${lines[2][1]},\n  tech: ${lines[3][1]},\n  project: {\n    title: ${q(data.pTitle || '나만의 가상 학교 전시관')},\n    description: ${q(data.pDesc || '학생들의 작품을 가상 공간에 전시하는 프로젝트')},\n    status: ${q(data.pStatus || '기획 중')}\n  },\n  githubUsername: ${q(data.ghid || 'my-github-id')}\n};`;
+  const html = esc(plain)
+    .replace(/(&quot;(?:[^&]|&(?!quot;))*?&quot;)/g,'<span class="s">$1</span>')
+    .replace(/^(\s*)(nickname|tagline|focus|tech|project|title|description|status|githubUsername)(:)/gm,'$1<span class="k">$2</span><span class="p">$3</span>')
+    .replace(/(const )(MY_PROFILE)/,'<span class="p">$1</span><span class="k">$2</span>');
+  return {plain, html};
+}
+
+function render(){
+  reqIds.length = 0;
+  $('#missions').innerHTML = M.map(m => `<section class="block" id="${m.id}">
+    <div class="block-head"><div><div class="mission-no">${m.no}</div><h2>${esc(m.title)}</h2></div><span class="tag ${m.tag}">${m.tagText}</span></div>
+    <p class="goal">${esc(m.goal)}</p>${m.items.map(fieldHTML).join('')}</section>`).join('');
+  $('#rail').innerHTML = '<div class="lbl">미션</div>' + M.map(m=>`<a href="#${m.id}" data-m="${m.id}"><span class="dot"></span>${m.no} · ${esc(m.title.split(' · ')[0])}</a>`).join('');
+  if (framed) { const p=$('#printBtn'); if(p) p.hidden=true; const d=$('#dlJson'); if(d) d.hidden=true; }
+  refresh();
+}
+
+function refresh(){
+  const filled = reqIds.filter(id => { const v=data[id]; return typeof v==='boolean'?v:String(v??'').trim()!==''; }).length;
+  const quizN = M.flatMap(m=>m.items.filter(i=>i.t==='quiz').flatMap(q=>q.items.map((_,i)=>q.id+'_'+i)));
+  const quizDone = quizN.filter(k=>data[k]).length;
+  const total = reqIds.length + quizN.length + 1;
+  const done = filled + quizDone + (data.design?1:0);
+  const pct = Math.round(done/total*100);
+  $('#barfill').style.width = pct+'%'; $('#pct').textContent = pct+'%';
+  $('#who').innerHTML = data.nick ? `<b>${esc(data.nick)}</b>의 제작 노트` : '닉네임 미입력';
+  const pc = $('#profileCode'); if (pc) pc.innerHTML = buildProfile().html;
+  const sum = $('#summary'); if (sum) sum.textContent = summary();
+  // rail dots per mission
+  M.forEach(m=>{
+    const ids=[]; const walk=a=>a.forEach(i=>{ if(i.items&&i.t==='row') walk(i.items); else if(i.id&&(i.req||i.t==='check')) ids.push(i.id); });
+    walk(m.items);
+    const ok = ids.length && ids.every(id=>{const v=data[id]; return typeof v==='boolean'?v:String(v??'').trim()!=='';});
+    const a = document.querySelector(`.rail a[data-m="${m.id}"] .dot`); if (a) a.style.background = ok ? 'var(--accent)' : '';
+  });
+}
+function summary(){
+  const L = (k,v)=>`${k}: ${v||'(미입력)'}`;
+  return [
+    '[MY XR UNIVERSE 제출]',
+    L('닉네임', data.nick), L('GitHub 아이디', data.ghid),
+    L('저장소', data.repo), L('홈페이지', data.site), L('Pull Request', data.pr),
+    L('선택한 디자인', data.design),
+    L('아이디어', [data.target, data.pain].filter(Boolean).join(' / ')),
+    L('AI 초안에서 고친 부분', data.aiEdit),
+    L('나의 다음 Commit', data.next)
+  ].join('\n');
+}
+
+/* ---------- 이벤트 ---------- */
+document.addEventListener('input', e => {
+  const el = e.target; if (!el.id || el.id==='pasteJson') return;
+  if (el.type==='checkbox') { data[el.id]=el.checked; el.closest('.check')?.classList.toggle('done',el.checked); }
+  else if (el.type==='radio') { data.design=el.value; document.querySelectorAll('.designs label').forEach(l=>l.classList.toggle('on', l.contains(el))); }
+  else data[el.id]=el.value;
+  save(); refresh();
+});
+document.addEventListener('change', e => { if (e.target.type==='radio' || e.target.tagName==='SELECT') e.target.dispatchEvent(new Event('input',{bubbles:true})); });
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.fill) {
+    const f = M.flatMap(m=>m.items).flatMap(i=>i.items||[i]).find(i=>i.id===b.dataset.fill);
+    if (!data.ghid) { toast('M0에 GitHub 아이디를 먼저 적어 주세요.'); $('#ghid').focus(); return; }
+    data[f.id] = f.fill(data.ghid.trim()); $('#'+f.id).value = data[f.id]; save(); refresh(); toast('주소를 채웠습니다. 실제 주소와 같은지 확인하세요.'); return;
+  }
+  if (b.dataset.v) {
+    const q = b.closest('.q'); const k=q.dataset.k; data[k]=b.dataset.v; save();
+    q.querySelectorAll('.ox button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+    q.querySelector('.fb')?.remove();
+    const ok = b.dataset.v===q.dataset.ans; const d=document.createElement('div'); d.className='fb '+(ok?'ok':'no'); d.textContent=(ok?'정답 · ':'다시 생각해 봐요 · ')+q.dataset.ex; q.append(d); refresh(); return;
+  }
+  if (b.id==='copyProfile') return copy(buildProfile().plain,'MY_PROFILE 코드를 복사했습니다.');
+  if (b.id==='copySum') return copy(summary(),'제출 내용을 복사했습니다.');
+  if (b.id==='copyJson') return copy(JSON.stringify(data),'백업 코드를 복사했습니다. 메모장 등에 붙여 두세요.');
+  if (b.id==='dlJson') { const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`xr-workbook-${(data.nick||'me').replace(/[^\w가-힣-]/g,'')}.json`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); return; }
+  if (b.id==='printBtn') { window.print(); return; }
+  if (b.id==='restoreBtn') { try { const o=JSON.parse($('#pasteJson').value); if(!o||typeof o!=='object') throw 0; data=o; save(); render(); toast('복원했습니다.'); } catch(_) { toast('백업 코드 형식이 올바르지 않습니다. 전체를 그대로 붙여 넣으세요.'); } return; }
+  if (b.id==='resetBtn') { const box=$('#confirmBox'); box.hidden=false; box.innerHTML='<div class="confirm">이 브라우저의 워크북 내용을 모두 지울까요? 백업했는지 먼저 확인하세요. <button type="button" class="btn small" id="resetYes">모두 지우기</button><button type="button" class="btn small" id="resetNo">취소</button></div>'; return; }
+  if (b.id==='resetYes') { data={}; save(); render(); toast('지웠습니다.'); return; }
+  if (b.id==='resetNo') { $('#confirmBox').hidden=true; return; }
+});
+document.addEventListener('change', e => {
+  if (e.target.id!=='loadFile' || !e.target.files[0]) return;
+  const r=new FileReader(); r.onload=()=>{ try{ data=JSON.parse(r.result)||{}; save(); render(); toast('백업 파일을 불러왔습니다.'); }catch(_){ toast('JSON 백업 파일이 아닙니다.'); } }; r.readAsText(e.target.files[0]);
+});
+// 현재 미션 표시
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ document.querySelectorAll('.rail a').forEach(a=>a.classList.toggle('on',a.dataset.m===en.target.id)); }}),{rootMargin:'-40% 0px -55% 0px'}) : null;
+render();
+if (io) document.querySelectorAll('section.block').forEach(s=>io.observe(s));
+})();
+</script>
+
+</body>
+</html>

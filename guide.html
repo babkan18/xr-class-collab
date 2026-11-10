@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GitHub 활용하기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Orbit&display=swap">
+<style>
+/* Layout: 왼쪽 미션 레일 + 오른쪽 노트 본문. 좁은 화면에서는 상단 칩 내비로 접힘 */
+:root{
+  --bg:#F4F6FA; --surface:#FFFFFF; --sunk:#EDF1F7; --ink:#14213D; --muted:#5B6680; --line:#D8DFEB;
+  --p0:#2F5BD3; --p1:#0E8C7F; --p2:#6A4CE0; --p3:#D94F2A; --tch:#55607A;
+  --p0-soft:#E6EDFC; --p1-soft:#E1F4F1; --p2-soft:#EDE9FC; --p3-soft:#FCEAE4;
+  --add:#1A7F37; --add-soft:#DAFBE1; --del:#CF222E; --del-soft:#FFEBE9;
+  --code-bg:#101A2E; --code-fg:#E4EAF5; --code-key:#7EE2D2; --code-str:#FFC98B; --code-pun:#9AA8C2;
+  --focus:#2F5BD3;
+  --f-display:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-brand:"Orbit","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --r:10px; --gap:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--f-body);margin:0;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--p0)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+h1,h2,h3{line-height:1.3;text-wrap:balance;margin:0}
+code,kbd,pre{font-family:var(--f-mono);font-size:.92em}
+p code,li code,td code{background:var(--sunk);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--surface)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;min-height:60px;padding-block:8px;flex-wrap:wrap}
+.brand{font-family:var(--f-brand);font-weight:400;letter-spacing:.04em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand i{width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--accent)}
+.books{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.books a{font-size:13px;text-decoration:none;color:var(--muted);padding:6px 11px;border-radius:999px;border:1px solid transparent}
+.books a:hover{color:var(--ink);border-color:var(--line)}
+.books a[aria-current="page"]{color:var(--accent);border-color:var(--accent);font-weight:600}
+
+/* hero */
+.hero{padding-block:44px 28px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,50px);letter-spacing:-.025em;margin:10px 0 12px}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:62ch;margin:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+
+/* period tags */
+.tag{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.t0{background:var(--p0-soft);color:var(--p0)} .t1{background:var(--p1-soft);color:var(--p1)}
+.t2{background:var(--p2-soft);color:var(--p2)} .t3{background:var(--p3-soft);color:var(--p3)}
+
+/* two-col shell */
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;align-items:start;padding-block:8px 64px}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:flex;flex-direction:column;gap:2px}
+.rail a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--muted);font-size:14px;padding:8px 10px;border-radius:8px}
+.rail a:hover{background:var(--surface);color:var(--ink)}
+.rail a.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 0 0 1px var(--line)}
+.rail .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--line)}
+.rail .lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);padding:14px 10px 6px;text-transform:uppercase}
+main{min-width:0}
+
+section.block{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px clamp(18px,3vw,34px);margin-bottom:22px;scroll-margin-top:90px}
+.block-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.block h2{font-size:clamp(21px,2.6vw,26px)}
+.block .goal{color:var(--muted);margin:6px 0 18px;max-width:68ch}
+.block h3{font-size:17px;margin:26px 0 10px}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:var(--sunk);border-radius:10px;padding:14px 16px;font-size:15px;margin:16px 0}
+.callout .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:var(--accent);color:var(--surface)}
+.callout.warn .ic{background:var(--p3)}
+.callout p{margin:0}
+
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;min-width:0}
+.field label,.field .lab{font-weight:600;font-size:15px}
+.field .hint{font-size:13px;color:var(--muted)}
+input[type=text],input[type=url],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:8px;border:1px solid var(--line);margin-bottom:8px;cursor:pointer;background:var(--bg)}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+.check.done{border-color:var(--accent);background:var(--surface)}
+.check span small{display:block;color:var(--muted);font-size:13px}
+
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.primary:hover{filter:brightness(1.07);color:var(--surface)}
+.btn.small{font-size:13px;padding:6px 11px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* code */
+.code{background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.75;margin:0;white-space:pre}
+.code .k{color:var(--code-key)} .code .s{color:var(--code-str)} .code .p{color:var(--code-pun)} .code .c{color:#7C8AA6}
+.codewrap{position:relative;margin-bottom:18px}
+.codewrap .btn{position:absolute;top:10px;right:10px;background:#1E2A44;color:#E4EAF5;border-color:#33425F}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:14px;z-index:50;max-width:calc(100% - 32px)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:13px;color:var(--muted);font-weight:600}
+.tblwrap{overflow-x:auto}
+
+footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding-block:24px 40px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;flex-direction:row;overflow-x:auto;background:var(--bg);padding-block:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+  .rail .lbl{display:none}
+  .rail a{white-space:nowrap;flex:none}
+  .topbar{position:relative;top:0}
+}
+@media (max-width:620px){
+  .grid2,.grid4{grid-template-columns:minmax(0,1fr)}
+  .books{margin-left:0}
+  .hero{padding-block:28px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  .topbar,.rail,.no-print,.toast{display:none!important}
+  .shell{display:block} section.block{break-inside:avoid;border-color:#bbb}
+  body{background:#fff;color:#000}
+}
+
+:root{--accent:var(--p0)}
+.chap{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--accent)}
+section.block p{max-width:70ch}
+.lead2{font-size:17px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 8px}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px}
+.stat b{display:block;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.15}
+.stat span{font-size:14px;color:var(--muted)}
+.src{font-size:13px;color:var(--muted);margin-top:8px}
+.trend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.trend article{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
+.trend h3{margin:0 0 6px;font-size:16px}
+.trend p{margin:0;font-size:14px;color:var(--muted)}
+.fig{margin:18px 0;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:14px}
+.fig svg{display:block;min-width:640px;width:100%;height:auto}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .mono{font-family:var(--f-mono)}
+svg .muted{fill:var(--muted)}
+svg .acc{fill:var(--accent)}
+svg .box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+svg .box-a{fill:var(--p0-soft);stroke:var(--p0);stroke-width:1.5}
+svg .box-1{fill:var(--p1-soft);stroke:var(--p1);stroke-width:1.5}
+svg .box-2{fill:var(--p2-soft);stroke:var(--p2);stroke-width:1.5}
+svg .box-3{fill:var(--p3-soft);stroke:var(--p3);stroke-width:1.5}
+svg .sunk{fill:var(--sunk);stroke:var(--line);stroke-width:1}
+svg .ln{stroke:var(--muted);stroke-width:2;fill:none}
+svg .ln-a{stroke:var(--p0);stroke-width:2.5;fill:none}
+svg .ln-1{stroke:var(--p1);stroke-width:3;fill:none}
+svg .ln-2{stroke:var(--p2);stroke-width:3;fill:none}
+svg .ln-3{stroke:var(--p3);stroke-width:2.5;fill:none;stroke-dasharray:7 5}
+svg .dot-1{fill:var(--p1)} svg .dot-2{fill:var(--p2)} svg .dot-3{fill:var(--p3)} svg .dot-a{fill:var(--p0)}
+svg .num{fill:var(--p3)} svg .num-t{fill:#fff;font-weight:700;font-size:13px}
+svg .add{fill:var(--add-soft)} svg .del{fill:var(--del-soft)}
+svg .add-t{fill:var(--add)} svg .del-t{fill:var(--del)}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;margin:4px 0 0;padding:0;list-style:none}
+.legend li{display:flex;gap:10px;font-size:15px}
+.legend li i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--p3);color:#fff;font-style:normal;font-weight:700;font-size:13px;display:grid;place-items:center}
+.legend li b{display:block}
+.legend li span{color:var(--muted);font-size:14px}
+.steps{list-style:none;padding:0;margin:14px 0;counter-reset:s;display:flex;flex-direction:column;gap:10px}
+.steps li{counter-increment:s;position:relative;padding:12px 14px 12px 54px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--surface);font-weight:700;font-size:14px;display:grid;place-items:center}
+.steps li b{display:block}
+.steps li span{color:var(--muted);font-size:14px}
+.ui{font-family:var(--f-mono);font-size:.88em;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.md-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.md-grid textarea{min-height:300px;font-family:var(--f-mono);font-size:14px;line-height:1.7}
+.md-out{border:1px solid var(--line);border-radius:8px;padding:6px 18px;background:var(--surface);min-height:300px;overflow:auto}
+.md-out h1{font-size:26px;border-bottom:1px solid var(--line);padding-bottom:6px;margin:14px 0 10px}
+.md-out h2{font-size:20px;border-bottom:1px solid var(--line);padding-bottom:4px;margin:16px 0 8px}
+.md-out h3{font-size:17px;margin:14px 0 6px}
+.md-out p,.md-out ul{margin:8px 0}
+.md-out blockquote{margin:8px 0;padding:2px 14px;border-left:4px solid var(--line);color:var(--muted)}
+.md-out .img{display:inline-block;border:1px dashed var(--line);border-radius:6px;padding:8px 12px;color:var(--muted);font-size:14px}
+.cheat td:first-child{font-family:var(--f-mono);white-space:nowrap}
+.vs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.vs div{border-radius:10px;padding:14px 16px}
+.vs .bad{background:var(--del-soft)} .vs .good{background:var(--add-soft)}
+.vs h3{margin:0 0 6px;font-size:15px}
+.vs .bad h3{color:var(--del)} .vs .good h3{color:var(--add)}
+.vs ul{margin:0;padding-left:18px;font-family:var(--f-mono);font-size:14px}
+details.faq{border:1px solid var(--line);border-radius:10px;background:var(--bg);margin-bottom:8px}
+details.faq summary{cursor:pointer;padding:13px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--muted);font-weight:400}
+details.faq[open] summary::after{content:"–"}
+details.faq .ans{padding:0 16px 14px;color:var(--ink)}
+details.faq .ans ol,details.faq .ans ul{margin:0;padding-left:20px}
+.gloss-search{max-width:360px;margin-bottom:14px}
+.gloss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gloss div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.gloss b{font-family:var(--f-mono);font-size:15px}
+.gloss small{color:var(--muted);margin-left:6px}
+.gloss p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.next{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.next article{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
+.next h3{margin:0 0 6px;font-size:16px}
+.next p{margin:0;font-size:14px;color:var(--muted)}
+.addr{font-family:var(--f-mono);font-size:clamp(14px,2vw,18px);display:flex;flex-wrap:wrap;gap:2px;align-items:flex-end;margin:12px 0}
+.addr span{display:inline-flex;flex-direction:column;align-items:center;gap:4px}
+.addr span em{font-style:normal;font-family:var(--f-body);font-size:12px;color:var(--muted);white-space:nowrap}
+.addr .h{background:var(--p0-soft);color:var(--p0);padding:2px 6px;border-radius:5px}
+.addr .h2{background:var(--p1-soft);color:var(--p1);padding:2px 6px;border-radius:5px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.trend,.md-grid,.vs,.gloss,.next,.legend{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="course.html"><i>✳</i>MY XR UNIVERSE</a>
+  <nav class="books" aria-label="수업 자료">
+    <a href="course.html">수업 홈</a><a href="workbook.html">워크북</a><a href="promptbook.html">프롬프트북</a><a href="guide.html" aria-current="page">GitHub 활용하기</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Web Book · GitHub 활용하기</div>
+    <h1>파일을 잃지 않고,<br>함께 바꾸고, 세상에 공개하기</h1>
+    <p class="lead">GitHub의 구조와 사용법을 그림으로 정리했습니다. 수업 중에 막히면 해당 장을 펼쳐 보고, 수업이 끝난 뒤에는 다음 프로젝트의 안내서로 쓰세요.</p>
+    <div class="meta-row"><span class="pill">브라우저만 있으면 OK</span><span class="pill">설치 없이 시작</span><span class="pill">용어 사전 포함</span></div>
+  </div>
+
+  <div class="shell">
+    <nav class="rail" id="rail" aria-label="목차">
+      <div class="lbl">목차</div>
+      <a href="#why">0 · 왜 GitHub인가</a>
+      <a href="#map">1 · GitHub의 구조</a>
+      <a href="#screen">2 · 저장소 화면 해부</a>
+      <a href="#flow">3 · Git이 기록하는 방법</a>
+      <a href="#repo">4 · 저장소 만들기</a>
+      <a href="#readme">5 · README와 Markdown</a>
+      <a href="#commit">6 · Commit · Diff · History</a>
+      <a href="#collab">7 · Fork · Branch · PR</a>
+      <a href="#pages">8 · GitHub Pages</a>
+      <a href="#fix">9 · 안 될 때</a>
+      <a href="#next">10 · 다음 단계</a>
+      <a href="#gloss">11 · 용어 사전</a>
+    </nav>
+    <main>
+
+<!-- 0 -->
+<section class="block" id="why">
+  <div class="chap">CHAPTER 0</div>
+  <h2>왜 지금 GitHub인가</h2>
+  <p class="goal lead2">GitHub는 전 세계 개발자가 코드를 저장하고, 기록하고, 함께 만드는 곳입니다. AI가 코드를 써 주는 시대에는 “무엇이 언제 왜 바뀌었는지”를 읽고 검토하는 능력이 더 중요해졌습니다.</p>
+  <div class="stats">
+    <div class="stat"><b>1억 8천만+</b><span>GitHub 개발자 수</span></div>
+    <div class="stat"><b>1초에 1명</b><span>2025년 새로 가입한 개발자 속도 (1년 3,600만 명)</span></div>
+    <div class="stat"><b>6억 3천만</b><span>전체 저장소 수 (2025년에만 1억 2,100만 개 추가)</span></div>
+    <div class="stat"><b>약 80%</b><span>가입 첫 주에 AI 코딩 도구(Copilot)를 쓴 신규 개발자 비율</span></div>
+  </div>
+  <p class="src">출처: GitHub Octoverse 2025 (2025.10 발표)</p>
+  <div class="trend">
+    <article><h3>AI가 Pull Request를 보낸다</h3><p>사람이 Issue로 할 일을 적으면 AI 코딩 에이전트가 코드를 고쳐 PR로 제안합니다. 2025년 5~9월에만 100만 건이 넘는 PR이 이렇게 만들어졌습니다. 그 PR을 읽고 합칠지 정하는 건 여전히 사람입니다.</p></article>
+    <article><h3>XR은 얼굴 위로</h3><p>헤드셋에서 안경으로 무게가 옮겨 가고 있습니다. 2026년 1분기 스마트 글라스 출하는 약 225만 대로 1년 전보다 167% 늘었고, 2026년 한 해 1,360만 대가 전망됩니다 (IDC, 2026.6).</p></article>
+    <article><h3>GitHub가 곧 포트폴리오</h3><p>저장소, Commit 기록, GitHub Pages 주소는 “내가 무엇을 어떻게 만들었는지” 보여 주는 증거입니다. 만 13세 이상 고등학생도 GitHub Education 학생 인증을 받을 수 있습니다.</p></article>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="block" id="map">
+  <div class="chap">CHAPTER 1</div>
+  <h2>GitHub의 구조 · 상자 안의 상자</h2>
+  <p class="goal">GitHub는 <b>계정</b> 안에 <b>저장소</b>가 있고, 저장소 안에 <b>브랜치</b>가, 브랜치에는 <b>Commit</b>이 줄지어 있으며, 각 Commit은 그 순간의 <b>파일</b> 상태를 담습니다.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 360" role="img" aria-label="계정 안에 저장소, 저장소 안에 브랜치, 브랜치에 Commit, Commit에 파일이 들어 있는 구조도">
+      <rect class="box" x="10" y="10" width="880" height="340" rx="16"/>
+      <text x="32" y="44" font-size="18" font-weight="700">계정</text><text x="80" y="44" font-size="14" class="muted mono">github.com/nova-xr</text>
+      <text x="32" y="66" font-size="13" class="muted">나 자신. 아이디가 주소가 됩니다.</text>
+      <rect class="box-a" x="32" y="84" width="560" height="248" rx="14"/>
+      <text x="52" y="114" font-size="17" font-weight="700">저장소 (Repository)</text><text x="225" y="114" font-size="14" class="muted mono">my-xr-universe</text>
+      <text x="52" y="134" font-size="13" class="muted">프로젝트 하나 = 저장소 하나. 파일 + 변경 기록 전체</text>
+      <rect class="box" x="52" y="150" width="520" height="80" rx="10"/>
+      <text x="68" y="174" font-size="14" font-weight="700">브랜치 main</text>
+      <line class="ln-1" x1="170" y1="200" x2="540" y2="200"/>
+      <circle class="dot-1" cx="200" cy="200" r="9"/><circle class="dot-1" cx="320" cy="200" r="9"/><circle class="dot-1" cx="440" cy="200" r="9"/><circle cx="540" cy="200" r="11" fill="var(--surface)" stroke="var(--p1)" stroke-width="3"/>
+      <text x="200" y="224" font-size="12" text-anchor="middle" class="muted">Commit 1</text><text x="320" y="224" font-size="12" text-anchor="middle" class="muted">Commit 2</text><text x="440" y="224" font-size="12" text-anchor="middle" class="muted">Commit 3</text><text x="540" y="182" font-size="12" text-anchor="middle" class="acc">지금</text>
+      <rect class="box" x="52" y="242" width="520" height="76" rx="10"/>
+      <text x="68" y="266" font-size="14" font-weight="700">브랜치 idea-01</text><text x="190" y="266" font-size="13" class="muted">원본은 두고 새로 시도하는 갈래</text>
+      <line class="ln-2" x1="170" y1="294" x2="400" y2="294"/>
+      <circle class="dot-2" cx="260" cy="294" r="9"/><circle class="dot-2" cx="380" cy="294" r="9"/>
+      <rect class="box-1" x="618" y="84" width="252" height="248" rx="14"/>
+      <text x="638" y="114" font-size="16" font-weight="700">Commit 3이 담은 것</text>
+      <text x="638" y="134" font-size="13" class="muted">그 순간 파일 전체의 사진</text>
+      <rect class="box" x="638" y="150" width="212" height="40" rx="8"/><text x="654" y="176" font-size="14" class="mono">README.md</text>
+      <rect class="box" x="638" y="198" width="212" height="40" rx="8"/><text x="654" y="224" font-size="14" class="mono">index.html</text>
+      <text x="638" y="262" font-size="13" class="muted">+ 누가 · 언제 · 메시지</text>
+      <text x="638" y="284" font-size="13" class="mono acc">“README에 관심 분야 추가”</text>
+      <path class="ln" d="M552 200 C 585 200 595 170 616 170" marker-end="url(#ah)"/>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--muted)"/></marker>
+      <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--p0)"/></marker>
+      <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--p3)"/></marker></defs>
+    </svg>
+    <figcaption>계정 › 저장소 › 브랜치 › Commit › 파일. 큰 상자에서 작은 상자 순서로 찾아 들어갑니다.</figcaption>
+  </figure>
+  <h3>주소를 읽으면 위치가 보인다</h3>
+  <div class="addr" aria-label="GitHub 주소 구조">
+    <span>github.com/<em>GitHub</em></span>
+    <span class="h">nova-xr<em>계정</em></span><span>/</span>
+    <span class="h2">my-xr-universe<em>저장소</em></span><span>/blob/</span>
+    <span class="h">main<em>브랜치</em></span><span>/</span>
+    <span class="h2">README.md<em>파일</em></span>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="block" id="screen">
+  <div class="chap">CHAPTER 2</div>
+  <h2>저장소 화면 해부도</h2>
+  <p class="goal">처음 보는 화면도 번호 순서대로 읽으면 길을 잃지 않습니다. 실제 화면은 계정 설정에 따라 조금 다를 수 있습니다.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 540" role="img" aria-label="GitHub 저장소 화면 모형과 번호 설명">
+      <rect class="box" x="10" y="10" width="880" height="520" rx="12"/>
+      <!-- header -->
+      <text x="34" y="48" font-size="17"><tspan class="acc">nova-xr</tspan> / <tspan font-weight="700">my-xr-universe</tspan></text>
+      <rect class="sunk" x="296" y="31" width="58" height="24" rx="12"/><text x="325" y="48" font-size="12" text-anchor="middle" class="muted">Public</text>
+      <rect class="box" x="640" y="30" width="72" height="28" rx="6"/><text x="676" y="49" font-size="12" text-anchor="middle">Watch</text>
+      <rect class="box" x="720" y="30" width="72" height="28" rx="6"/><text x="756" y="49" font-size="12" text-anchor="middle">Fork</text>
+      <rect class="box" x="800" y="30" width="70" height="28" rx="6"/><text x="835" y="49" font-size="12" text-anchor="middle">Star</text>
+      <!-- tabs -->
+      <line x1="10" y1="96" x2="890" y2="96" stroke="var(--line)"/>
+      <text x="34" y="84" font-size="14" font-weight="700">Code</text><rect x="28" y="92" width="48" height="4" fill="var(--p3)"/>
+      <text x="100" y="84" font-size="14" class="muted">Issues</text><text x="170" y="84" font-size="14" class="muted">Pull requests</text><text x="290" y="84" font-size="14" class="muted">Actions</text><text x="370" y="84" font-size="14" class="muted">Settings</text>
+      <!-- toolbar -->
+      <rect class="box" x="34" y="114" width="96" height="32" rx="6"/><text x="50" y="135" font-size="13" class="mono">main ▾</text>
+      <rect class="sunk" x="140" y="114" width="230" height="32" rx="6"/><text x="156" y="135" font-size="13" class="muted">Go to file</text>
+      <rect class="box" x="420" y="114" width="100" height="32" rx="6"/><text x="470" y="135" font-size="13" text-anchor="middle">Add file ▾</text>
+      <rect x="530" y="114" width="90" height="32" rx="6" fill="var(--add)"/><text x="575" y="135" font-size="13" text-anchor="middle" fill="#fff" style="fill:#fff">Code ▾</text>
+      <!-- commit bar -->
+      <rect class="sunk" x="34" y="160" width="586" height="40" rx="6"/>
+      <text x="50" y="185" font-size="13"><tspan font-weight="700">nova-xr</tspan>  README에 관심 분야 추가</text>
+      <text x="604" y="185" font-size="13" text-anchor="end" class="muted">🕘 3 Commits</text>
+      <!-- files -->
+      <rect class="box" x="34" y="200" width="586" height="40"/><text x="56" y="225" font-size="14" class="mono">README.md</text><text x="400" y="225" font-size="13" class="muted">README에 관심 분야 추가</text>
+      <rect class="box" x="34" y="240" width="586" height="40"/><text x="56" y="265" font-size="14" class="mono">index.html</text><text x="400" y="265" font-size="13" class="muted">Add XR portfolio template</text>
+      <!-- readme -->
+      <rect class="box" x="34" y="296" width="586" height="214" rx="8"/>
+      <text x="50" y="320" font-size="13" class="muted">README</text>
+      <line x1="34" y1="330" x2="620" y2="330" stroke="var(--line)"/>
+      <text x="54" y="368" font-size="24" font-weight="700">MY XR UNIVERSE</text>
+      <text x="54" y="402" font-size="14">닉네임: NOVA · 관심 분야: VR</text>
+      <text x="54" y="428" font-size="14">아이디어: 교내 작품 가상 전시관</text>
+      <text x="54" y="454" font-size="14">현재 상태: 기획 중</text>
+      <!-- about -->
+      <text x="650" y="132" font-size="15" font-weight="700">About</text>
+      <text x="650" y="158" font-size="13" class="muted">XR 아이디어 포트폴리오</text>
+      <text x="650" y="184" font-size="13" class="acc mono">nova-xr.github.io/</text>
+      <text x="650" y="202" font-size="13" class="acc mono">my-xr-universe/</text>
+      <line x1="650" y1="222" x2="870" y2="222" stroke="var(--line)"/>
+      <text x="650" y="248" font-size="13" class="muted">Deployments · github-pages</text>
+      <!-- numbers -->
+      <g><circle class="num" cx="22" cy="44" r="12"/><text class="num-t" x="22" y="49" text-anchor="middle" style="fill:#fff">1</text></g>
+      <g><circle class="num" cx="460" cy="78" r="12"/><text x="460" y="83" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">2</text></g>
+      <g><circle class="num" cx="22" cy="130" r="12"/><text x="22" y="135" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">3</text></g>
+      <g><circle class="num" cx="408" cy="130" r="12"/><text x="408" y="135" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">4</text></g>
+      <g><circle class="num" cx="632" cy="180" r="12"/><text x="632" y="185" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">5</text></g>
+      <g><circle class="num" cx="22" cy="240" r="12"/><text x="22" y="245" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">6</text></g>
+      <g><circle class="num" cx="22" cy="400" r="12"/><text x="22" y="405" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">7</text></g>
+      <g><circle class="num" cx="876" cy="192" r="12"/><text x="876" y="197" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:13px">8</text></g>
+    </svg>
+  </figure>
+  <ul class="legend">
+    <li><i>1</i><div><b>계정 / 저장소 이름</b><span>누구의 어떤 프로젝트인지. Public은 누구나 볼 수 있다는 뜻</span></div></li>
+    <li><i>2</i><div><b>탭 메뉴</b><span>Code 파일 · Issues 할 일 · Pull requests 변경 제안 · Actions 배포 상태 · Settings 설정</span></div></li>
+    <li><i>3</i><div><b>브랜치 선택</b><span>지금 보고 있는 갈래. 수정 전에 꼭 확인</span></div></li>
+    <li><i>4</i><div><b>Add file</b><span>새 파일 만들기 · 파일 업로드</span></div></li>
+    <li><i>5</i><div><b>최근 Commit · History</b><span>“3 Commits”를 누르면 바뀐 기록 전체</span></div></li>
+    <li><i>6</i><div><b>파일 목록</b><span>저장소 최상위. 파일 옆 문장은 그 파일을 마지막으로 바꾼 Commit 메시지</span></div></li>
+    <li><i>7</i><div><b>README 미리보기</b><span>README.md가 자동으로 아래에 보입니다</span></div></li>
+    <li><i>8</i><div><b>About · 웹 주소</b><span>설명과 GitHub Pages 주소를 적어 두는 곳</span></div></li>
+  </ul>
+</section>
+
+<!-- 3 -->
+<section class="block" id="flow">
+  <div class="chap">CHAPTER 3</div>
+  <h2>Git이 기록하는 방법</h2>
+  <p class="goal"><b>Git</b>은 변경 기록을 관리하는 도구이고, <b>GitHub</b>는 그 기록을 온라인에 올려 함께 쓰는 서비스입니다. 개발자는 내 컴퓨터에서 작업한 뒤 GitHub로 올리고(push), 친구의 변경을 내려받습니다(pull).</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 300" role="img" aria-label="작업 폴더, 스테이징, 로컬 저장소, GitHub 원격 저장소 사이의 흐름">
+      <rect class="sunk" x="10" y="10" width="560" height="220" rx="14"/>
+      <text x="30" y="40" font-size="15" font-weight="700">내 컴퓨터 (Git)</text>
+      <rect class="box" x="30" y="70" width="150" height="100" rx="10"/><text x="105" y="110" font-size="15" font-weight="700" text-anchor="middle">작업 폴더</text><text x="105" y="134" font-size="12" text-anchor="middle" class="muted">파일을 고치는 곳</text>
+      <rect class="box" x="220" y="70" width="150" height="100" rx="10"/><text x="295" y="110" font-size="15" font-weight="700" text-anchor="middle">스테이징</text><text x="295" y="134" font-size="12" text-anchor="middle" class="muted">기록할 것 고르기</text>
+      <rect class="box-1" x="410" y="70" width="140" height="100" rx="10"/><text x="480" y="110" font-size="15" font-weight="700" text-anchor="middle">로컬 저장소</text><text x="480" y="134" font-size="12" text-anchor="middle" class="muted">Commit 기록</text>
+      <line class="ln" x1="182" y1="120" x2="216" y2="120" marker-end="url(#ah)"/><text x="199" y="190" font-size="12" class="mono muted" text-anchor="middle">add</text>
+      <line class="ln" x1="372" y1="120" x2="406" y2="120" marker-end="url(#ah)"/><text x="389" y="190" font-size="12" class="mono muted" text-anchor="middle">commit</text>
+      <rect class="box-a" x="680" y="40" width="200" height="160" rx="14"/><text x="780" y="96" font-size="16" font-weight="700" text-anchor="middle">GitHub</text><text x="780" y="120" font-size="13" text-anchor="middle" class="muted">원격 저장소</text><text x="780" y="144" font-size="12" text-anchor="middle" class="muted mono">github.com/…</text>
+      <path class="ln-a" d="M552 100 L676 100" marker-end="url(#ahA)"/><text x="614" y="90" font-size="13" class="mono acc" text-anchor="middle">push</text>
+      <path class="ln-a" d="M676 145 L556 145" marker-end="url(#ahA)"/><text x="614" y="168" font-size="13" class="mono acc" text-anchor="middle">pull · clone</text>
+      <rect class="box-3" x="10" y="248" width="880" height="44" rx="10"/>
+      <text x="450" y="276" font-size="14" text-anchor="middle">오늘 수업 · 브라우저의 <tspan font-weight="700">Commit changes</tspan> 버튼 하나가 add + commit + push를 한 번에 해 줍니다.</text>
+    </svg>
+  </figure>
+</section>
+
+<!-- 4 -->
+<section class="block" id="repo">
+  <div class="chap">CHAPTER 4 · 1교시</div>
+  <h2>나의 저장소 만들기</h2>
+  <p class="goal">이 저장소는 3교시에 내 홈페이지가 됩니다. 이름을 정확히 맞춰 주세요.</p>
+  <ol class="steps">
+    <li><b>오른쪽 위 <span class="ui">+</span> → <span class="ui">New repository</span></b><span>로그인한 상태여야 합니다. 이메일 인증이 안 되어 있으면 이 단계에서 막힐 수 있습니다.</span></li>
+    <li><b>Owner: 내 계정 · Repository name: <code>my-xr-universe</code></b><span>소문자, 하이픈(-) 사용. 이름이 다르면 홈페이지 주소도 달라집니다.</span></li>
+    <li><b><span class="ui">Public</span> 선택 + <span class="ui">Add a README file</span> 켜기</b><span>무료 계정의 GitHub Pages는 Public 저장소에서 사용합니다.</span></li>
+    <li><b><span class="ui">Create repository</span></b><span>완료 신호: 화면 왼쪽 위에 <code>내아이디 / my-xr-universe</code>가 보입니다.</span></li>
+  </ol>
+  <div class="callout warn"><span class="ic">!</span><p>저장소에는 닉네임과 아이디어만 올립니다. 실명, 전화번호, 학번, 비밀번호, API 키, 허락받지 않은 사진은 올리지 않습니다. Public 저장소는 전 세계 누구나 볼 수 있고, Commit 기록에도 남습니다.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="block" id="readme">
+  <div class="chap">CHAPTER 5 · 1교시</div>
+  <h2>README와 Markdown</h2>
+  <p class="goal">README는 처음 온 사람을 위한 안내문입니다. “무엇을, 누구를 위해, 지금 어디까지”에 답하면 좋은 README입니다. <code>README.md</code>의 <b>.md</b>는 Markdown이라는 간단한 문서 형식입니다.</p>
+  <h3>자주 쓰는 Markdown 6가지</h3>
+  <div class="tblwrap"><table class="tbl cheat">
+    <thead><tr><th>이렇게 쓰면</th><th>이렇게 보여요</th></tr></thead>
+    <tbody>
+      <tr><td># 큰 제목</td><td><b style="font-size:20px">큰 제목</b></td></tr>
+      <tr><td>## 소제목</td><td><b style="font-size:17px">소제목</b></td></tr>
+      <tr><td>- 목록</td><td>• 목록</td></tr>
+      <tr><td>**굵게**</td><td><b>굵게</b></td></tr>
+      <tr><td>[링크 글자](https://주소)</td><td><a href="#readme">링크 글자</a></td></tr>
+      <tr><td>- [x] 완료한 일</td><td>☑ 완료한 일</td></tr>
+    </tbody></table></div>
+  <h3>직접 써 보기 · 왼쪽을 고치면 오른쪽이 바뀝니다</h3>
+  <div class="md-grid">
+    <div class="field" style="margin:0"><label for="mdIn" class="lab">Markdown 원문</label><textarea id="mdIn" spellcheck="false"># MY XR UNIVERSE
+
+## 나의 관심
+VR 전시 공간을 탐험합니다.
+
+- 닉네임: **NOVA**
+- 프로젝트: 교내 작품 전시관
+- 현재 상태: 기획 중
+
+## 할 일
+- [x] 저장소 만들기
+- [ ] 홈페이지 공개하기
+
+[내 홈페이지](https://nova-xr.github.io/my-xr-universe/)</textarea></div>
+    <div class="field" style="margin:0"><span class="lab">Preview</span><div class="md-out" id="mdOut" aria-live="polite"></div></div>
+  </div>
+  <h3>GitHub에서 고치는 순서</h3>
+  <ol class="steps">
+    <li><b><code>README.md</code> 클릭 → 오른쪽 위 연필 아이콘 (Edit)</b><span>파일 화면에서만 연필이 보입니다.</span></li>
+    <li><b>내용 수정 → <span class="ui">Preview</span> 탭에서 결과 확인</b><span>제목·목록이 제대로 보이는지 확인합니다.</span></li>
+    <li><b><span class="ui">Commit changes…</span> → 메시지 쓰기 → 다시 <span class="ui">Commit changes</span></b><span>1교시 개인 저장소에서는 “Commit directly to the main branch”를 선택합니다.</span></li>
+  </ol>
+</section>
+
+<!-- 6 -->
+<section class="block" id="commit">
+  <div class="chap">CHAPTER 6 · 1교시</div>
+  <h2>Commit · Diff · History</h2>
+  <p class="goal"><b>Commit</b>은 설명이 붙은 저장 지점입니다. 게임의 세이브 포인트처럼 언제든 그 상태를 다시 볼 수 있고, <b>Diff</b>로 무엇이 바뀌었는지, <b>History</b>로 바뀐 길 전체를 읽습니다.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 250" role="img" aria-label="Commit 세 개가 이어진 History와, 한 Commit의 변경 줄을 보여 주는 Diff">
+      <line class="ln-1" x1="60" y1="60" x2="430" y2="60"/>
+      <circle class="dot-1" cx="80" cy="60" r="11"/><circle class="dot-1" cx="230" cy="60" r="11"/><circle cx="380" cy="60" r="13" fill="var(--surface)" stroke="var(--p1)" stroke-width="4"/>
+      <text x="80" y="96" font-size="13" text-anchor="middle" font-weight="700">Commit 1</text><text x="80" y="116" font-size="12" text-anchor="middle" class="muted">README 소개 추가</text>
+      <text x="230" y="96" font-size="13" text-anchor="middle" font-weight="700">Commit 2</text><text x="230" y="116" font-size="12" text-anchor="middle" class="muted">관심 분야 구체화</text>
+      <text x="380" y="96" font-size="13" text-anchor="middle" font-weight="700">Commit 3</text><text x="380" y="116" font-size="12" text-anchor="middle" class="muted">프로젝트 아이디어 추가</text>
+      <text x="60" y="30" font-size="14" font-weight="700">History · 바뀐 길</text>
+      <path class="ln" d="M230 128 C 230 170 420 150 470 150" marker-end="url(#ah)"/>
+      <text x="490" y="30" font-size="14" font-weight="700">Diff · Commit 2에서 바뀐 줄</text>
+      <rect class="box" x="490" y="44" width="390" height="190" rx="10"/>
+      <text x="508" y="72" font-size="13" class="mono muted">README.md</text>
+      <rect class="sunk" x="490" y="84" width="390" height="34"/><text x="508" y="106" font-size="13" class="mono">  # MY XR UNIVERSE</text>
+      <rect class="del" x="490" y="118" width="390" height="34"/><text x="508" y="140" font-size="14" class="mono del-t">- 관심 분야: 게임</text>
+      <rect class="add" x="490" y="152" width="390" height="34"/><text x="508" y="174" font-size="14" class="mono add-t">+ 관심 분야: VR 전시 공간</text>
+      <text x="508" y="216" font-size="13" class="muted">빨강 = 지운 줄 · 초록 = 더한 줄 (오류 표시가 아닙니다)</text>
+    </svg>
+  </figure>
+  <h3>좋은 Commit 메시지 = 무엇을 + 어떻게</h3>
+  <div class="vs">
+    <div class="bad"><h3>나중에 읽으면 모르는 메시지</h3><ul><li>수정</li><li>최종</li><li>ㅇㅇ</li><li>Update README.md</li></ul></div>
+    <div class="good"><h3>History만 봐도 아는 메시지</h3><ul><li>README에 XR 관심 분야 소개 추가</li><li>닉네임을 NOVA로 변경</li><li>프로젝트 상태를 '기획 중'으로 수정</li><li>Add XR portfolio template</li></ul></div>
+  </div>
+  <p>History 보는 법: 저장소 첫 화면의 <span class="ui">🕘 N Commits</span> → 메시지 클릭 → 바뀐 줄 확인.</p>
+</section>
+
+<!-- 7 -->
+<section class="block" id="collab">
+  <div class="chap">CHAPTER 7 · 2교시</div>
+  <h2>Fork · Branch · Pull Request</h2>
+  <p class="goal">남의 저장소는 내가 직접 고칠 수 없습니다. 대신 내 계정에 복사(<b>Fork</b>)하고, 새 갈래(<b>Branch</b>)에서 고친 뒤, 원본에 “이렇게 바꾸면 어때요?”라고 제안(<b>Pull Request</b>)합니다. 원본 주인이 검토(<b>Review</b>)하고 합치면(<b>Merge</b>) 반영됩니다.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 420" role="img" aria-label="강사 원본 저장소에서 내 Fork로 복사하고, idea-01 브랜치에서 Commit한 뒤, Pull Request로 원본에 제안하고 강사가 Merge하는 흐름">
+      <rect class="box-a" x="16" y="40" width="380" height="270" rx="16"/>
+      <text x="36" y="72" font-size="16" font-weight="700">원본 저장소 (강사)</text>
+      <text x="36" y="94" font-size="13" class="mono muted">chloeisLovely / my-xr-universe</text>
+      <text x="40" y="168" font-size="13" class="mono" font-weight="700">main</text>
+      <line class="ln-1" x1="90" y1="163" x2="370" y2="163"/>
+      <circle class="dot-1" cx="120" cy="163" r="10"/><circle class="dot-1" cx="200" cy="163" r="10"/>
+      <circle cx="320" cy="163" r="14" fill="var(--surface)" stroke="var(--p3)" stroke-width="4"/>
+      <text x="334" y="206" font-size="13" font-weight="700" fill="var(--p3)" style="fill:var(--p3)">⑥ Merge</text>
+      <text x="334" y="224" font-size="12" class="muted">강사가 합치기</text>
+      <text x="36" y="268" font-size="13" class="muted">Issue #1 · 수업 미션: 내 아이디어 파일 추가</text>
+
+      <rect class="box-2" x="504" y="40" width="380" height="270" rx="16"/>
+      <text x="524" y="72" font-size="16" font-weight="700">내 Fork (내 계정)</text>
+      <text x="524" y="94" font-size="13" class="mono muted">내아이디 / xr-class-collab</text>
+      <text x="526" y="148" font-size="13" class="mono" font-weight="700">main</text>
+      <line class="ln-1" x1="574" y1="143" x2="860" y2="143"/>
+      <circle class="dot-1" cx="600" cy="143" r="10"/><circle class="dot-1" cx="660" cy="143" r="10"/>
+      <text x="526" y="238" font-size="13" class="mono" font-weight="700" fill="var(--p2)" style="fill:var(--p2)">idea-01</text>
+      <path class="ln-2" d="M660 143 C 690 143 690 233 730 233 L 850 233"/>
+      <circle class="dot-2" cx="760" cy="233" r="10"/><circle class="dot-2" cx="830" cy="233" r="10"/>
+      <text x="688" y="190" font-size="13" font-weight="700" fill="var(--p2)" style="fill:var(--p2)">② Branch</text>
+      <text x="750" y="268" font-size="13" text-anchor="middle" font-weight="700">③ Commit</text>
+      <text x="750" y="286" font-size="12" text-anchor="middle" class="muted">student-01.md 수정</text>
+
+      <path class="ln-a" d="M398 110 L 500 110" marker-end="url(#ahA)"/>
+      <text x="450" y="98" font-size="14" text-anchor="middle" font-weight="700" class="acc">① Fork</text>
+      <text x="450" y="132" font-size="12" text-anchor="middle" class="muted">내 계정에 복사</text>
+
+      <path class="ln-3" d="M830 246 L 830 360 L 320 360 L 320 181" marker-end="url(#ah3)"/>
+      <rect x="430" y="340" width="300" height="40" rx="20" fill="var(--surface)" stroke="var(--p3)" stroke-width="1.5"/>
+      <text x="580" y="366" font-size="14" text-anchor="middle" font-weight="700">④ Pull Request  →  ⑤ Review</text>
+      <text x="580" y="404" font-size="12" text-anchor="middle" class="muted">head: 내 Fork의 idea-01   →   base: 원본의 main</text>
+    </svg>
+    <figcaption>PR을 열었다고 원본이 바로 바뀌지 않습니다. Review 후 Merge해야 반영됩니다.</figcaption>
+  </figure>
+  <h3>순서대로 따라 하기</h3>
+  <ol class="steps">
+    <li><b>Issue 읽기</b><span>수업 저장소 → <span class="ui">Issues</span> → 수업 미션 #1. 무엇을 왜 하는지 확인합니다.</span></li>
+    <li><b>Fork</b><span>오른쪽 위 <span class="ui">Fork</span> → Repository name을 <code>xr-class-collab</code>으로 바꾸고 <span class="ui">Create fork</span>. 내 홈페이지 저장소와 이름이 겹치지 않게 합니다.</span></li>
+    <li><b>Branch 만들기</b><span>내 Fork에서 <span class="ui">main ▾</span> → <code>idea-01</code> 입력 → <span class="ui">Create branch: idea-01 from main</span>.</span></li>
+    <li><b>내 파일 하나만 수정 → Commit</b><span><code>collaboration/ideas/student-번호.md</code>에 닉네임·대상·불편·XR 경험·첫 실험을 적고, idea-01 브랜치에 Commit합니다.</span></li>
+    <li><b>Pull Request</b><span><span class="ui">Compare &amp; pull request</span> → base는 강사 저장소 main, head는 내 Fork idea-01 → 제목과 본문(변경 내용·이유·질문, <code>Refs #1</code>) → <span class="ui">Create pull request</span>.</span></li>
+    <li><b>Review</b><span>친구 PR의 <span class="ui">Files changed</span>에서 바뀐 줄을 읽고 관찰·질문·제안 한 문장씩 댓글로 남깁니다.</span></li>
+  </ol>
+  <h3>Fork와 Branch, 뭐가 달라요?</h3>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Fork</th><th>Branch</th></tr></thead><tbody>
+    <tr><td><b>무엇</b></td><td>다른 사람 저장소를 내 계정에 통째로 복사한 <b>별도 저장소</b></td><td>한 저장소 안에서 갈라진 <b>작업 흐름</b></td></tr>
+    <tr><td><b>언제</b></td><td>원본에 쓰기 권한이 없을 때</td><td>원본(main)은 두고 새로 시도할 때</td></tr>
+    <tr><td><b>오늘</b></td><td><code>xr-class-collab</code></td><td><code>idea-01</code></td></tr>
+  </tbody></table></div>
+  <h3>왜 각자 다른 파일을 고칠까요? · 충돌(Conflict)</h3>
+  <p>두 사람이 <b>같은 파일의 같은 줄</b>을 다르게 고쳐 동시에 합치려 하면, Git은 어느 쪽이 맞는지 스스로 정할 수 없어 멈춥니다. 이것이 충돌입니다. 오늘은 11명이 각자 <code>student-01.md</code> ~ <code>student-11.md</code> 중 자기 번호 파일만 고치기 때문에 충돌이 생기지 않습니다. 실제 팀 프로젝트에서도 작업을 파일·기능 단위로 나누는 이유입니다.</p>
+</section>
+
+<!-- 8 -->
+<section class="block" id="pages">
+  <div class="chap">CHAPTER 8 · 3교시</div>
+  <h2>GitHub Pages · 파일을 웹사이트로</h2>
+  <p class="goal">저장소의 <code>index.html</code>을 GitHub가 대신 웹에 올려 줍니다. 서버를 빌리거나 설치할 필요가 없습니다.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 200" role="img" aria-label="저장소의 index.html이 Pages 설정과 Actions 배포를 거쳐 github.io 주소로 공개되는 흐름">
+      <rect class="box-1" x="10" y="40" width="190" height="110" rx="12"/><text x="105" y="76" font-size="15" font-weight="700" text-anchor="middle">저장소 main</text><text x="105" y="102" font-size="13" text-anchor="middle" class="mono">index.html</text><text x="105" y="124" font-size="12" text-anchor="middle" class="muted">최상위(root)에</text>
+      <rect class="box" x="240" y="40" width="190" height="110" rx="12"/><text x="335" y="76" font-size="15" font-weight="700" text-anchor="middle">Settings › Pages</text><text x="335" y="102" font-size="12" text-anchor="middle" class="muted">Deploy from a branch</text><text x="335" y="124" font-size="12" text-anchor="middle" class="mono">main · /(root) · Save</text>
+      <rect class="box-2" x="470" y="40" width="190" height="110" rx="12"/><text x="565" y="76" font-size="15" font-weight="700" text-anchor="middle">Actions</text><text x="565" y="102" font-size="12" text-anchor="middle" class="muted">자동 배포 실행</text><text x="565" y="124" font-size="12" text-anchor="middle" class="muted">보통 1~몇 분</text>
+      <rect class="box-3" x="700" y="40" width="190" height="110" rx="12"/><text x="795" y="76" font-size="15" font-weight="700" text-anchor="middle">공개 주소</text><text x="795" y="102" font-size="12" text-anchor="middle" class="mono">아이디.github.io/</text><text x="795" y="120" font-size="12" text-anchor="middle" class="mono">my-xr-universe/</text>
+      <line class="ln" x1="202" y1="95" x2="236" y2="95" marker-end="url(#ah)"/><line class="ln" x1="432" y1="95" x2="466" y2="95" marker-end="url(#ah)"/><line class="ln" x1="662" y1="95" x2="696" y2="95" marker-end="url(#ah)"/>
+      <text x="450" y="186" font-size="13" text-anchor="middle" class="muted">한 번 켜 두면, 이후 Commit할 때마다 자동으로 다시 배포됩니다.</text>
+    </svg>
+  </figure>
+  <ol class="steps">
+    <li><b>Add file → Upload files로 <code>index.html</code> 올리기</b><span>ZIP은 압축을 풀고 파일만. 폴더째 올리면 주소가 달라집니다. 파일 이름은 소문자 <code>index.html</code>.</span></li>
+    <li><b><span class="ui">Settings</span> → 왼쪽 <span class="ui">Pages</span></b><span>Settings가 안 보이면 내 저장소가 맞는지 확인합니다.</span></li>
+    <li><b>Source: <span class="ui">Deploy from a branch</span> · Branch: <span class="ui">main</span> · Folder: <span class="ui">/(root)</span> → <span class="ui">Save</span></b><span>None 상태로 두면 배포되지 않습니다.</span></li>
+    <li><b><span class="ui">Actions</span> 탭에서 초록 체크 확인</b><span>노란 점은 진행 중. 기다리는 동안 친구 작품을 검토합니다.</span></li>
+    <li><b>Pages 화면 위쪽에 표시된 주소 열기</b><span>주소를 추측하지 말고 표시된 주소를 복사해 워크북에 붙입니다.</span></li>
+  </ol>
+  <h3>주소 두 개를 구분하세요</h3>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>주소</th><th>예시</th><th>보는 것</th></tr></thead><tbody>
+    <tr><td><b>저장소 주소</b></td><td><code>github.com/nova-xr/my-xr-universe</code></td><td>코드, README, Commit, PR</td></tr>
+    <tr><td><b>홈페이지 주소</b></td><td><code>nova-xr.github.io/my-xr-universe/</code></td><td>방문자가 보는 완성 화면</td></tr>
+  </tbody></table></div>
+</section>
+
+<!-- 9 -->
+<section class="block" id="fix">
+  <div class="chap">CHAPTER 9</div>
+  <h2>안 될 때는 현상부터 나누기</h2>
+  <p class="goal">“안 돼요” 대신 <b>관찰한 현상 + 기대한 결과 + 최근에 바꾼 것</b>을 말하면 원인을 빨리 찾습니다.</p>
+  <details class="faq"><summary>404 · There isn't a GitHub Pages site here</summary><div class="ans"><ol><li>파일 이름이 정확히 소문자 <code>index.html</code>인가요? (<code>Index.html</code>, <code>index.html.txt</code> 안 됨)</li><li>저장소 <b>최상위</b>에 있나요? <code>student/index.html</code>처럼 폴더 안에 있으면 안 됩니다.</li><li>Settings → Pages가 <code>main</code> / <code>/(root)</code>로 저장되어 있나요?</li><li>Actions가 아직 진행 중인가요? 1~2분 기다린 뒤 새로고침합니다.</li></ol></div></details>
+  <details class="faq"><summary>고쳤는데 예전 화면이 보여요</summary><div class="ans"><ol><li>Commit이 <code>main</code> 브랜치에 들어갔나요?</li><li>Actions의 최신 실행이 초록 체크인가요?</li><li>강력 새로고침: Windows <code>Ctrl</code>+<code>Shift</code>+<code>R</code>, Mac <code>Cmd</code>+<code>Shift</code>+<code>R</code>. 또는 시크릿 창에서 열기.</li></ol></div></details>
+  <details class="faq"><summary>내 닉네임 대신 기본 닉네임(XR Explorer)이 보여요</summary><div class="ans"><ol><li>MY_PROFILE에서 따옴표·쉼표·괄호를 지우지 않았나요? 워크북 M3의 코드 만들기를 쓰면 문법이 자동으로 맞춰집니다.</li><li>프롬프트북 P13으로 오류 줄을 찾을 수 있습니다.</li><li>수정한 파일이 정말 업로드한 그 <code>index.html</code>인가요?</li></ol></div></details>
+  <details class="faq"><summary>홈페이지에 README만 보여요</summary><div class="ans">최상위에 <code>index.html</code>이 없으면 GitHub Pages는 README를 대신 보여 줍니다. 파일 이름과 위치를 확인하세요.</div></details>
+  <details class="faq"><summary>Fork 버튼을 눌렀는데 이미 있대요</summary><div class="ans">이미 Fork한 저장소가 있다는 뜻입니다. 내 계정의 저장소 목록에서 <code>xr-class-collab</code>을 열어 이어서 작업합니다. 새로 만들지 않습니다.</div></details>
+  <details class="faq"><summary>PR의 Files changed에 다른 파일도 바뀌어 있어요</summary><div class="ans">실수로 다른 파일을 고쳤거나 main에서 작업했을 수 있습니다. 강사에게 PR 주소를 보여 주세요. 같은 브랜치에서 되돌리는 Commit을 추가하면 PR이 자동으로 업데이트됩니다.</div></details>
+  <details class="faq"><summary>저장소를 만들 수 없어요 · 이메일 인증</summary><div class="ans">가입 이메일의 인증 링크를 눌러야 합니다. 메일이 안 오면 스팸함을 확인하고, Settings → Emails에서 인증 메일을 다시 보냅니다.</div></details>
+  <details class="faq"><summary>Public으로 올린 개인 정보를 지우고 싶어요</summary><div class="ans">파일에서 지우고 Commit해도 <b>이전 Commit 기록에는 남아 있습니다</b>. 비밀번호나 키라면 즉시 해당 서비스에서 바꾸고, 강사에게 알리세요. 처음부터 올리지 않는 것이 가장 안전합니다.</div></details>
+</section>
+
+<!-- 10 -->
+<section class="block" id="next">
+  <div class="chap">CHAPTER 10</div>
+  <h2>오늘 이후 · 다음 단계</h2>
+  <p class="goal">오늘은 브라우저로 시작했습니다. 실제 XR 프로젝트를 만들 때는 아래 도구로 넓혀 갑니다.</p>
+  <div class="next">
+    <article><h3>프로필 README</h3><p>아이디와 같은 이름의 저장소(예: <code>nova-xr/nova-xr</code>)를 만들고 README를 쓰면 내 GitHub 프로필 첫 화면에 보입니다. 포트폴리오의 첫인상입니다.</p></article>
+    <article><h3>GitHub Desktop · VS Code</h3><p>내 컴퓨터에서 파일을 고치고 버튼으로 Commit·Push합니다. 명령어 없이 Chapter 3의 흐름을 그대로 경험할 수 있습니다.</p></article>
+    <article><h3>Unity 프로젝트 올리기</h3><p>저장소를 만들 때 <code>.gitignore</code> 템플릿에서 <b>Unity</b>를 고르면 자동 생성되는 큰 폴더(Library, Temp 등)를 빼고 올립니다.</p></article>
+    <article><h3>큰 3D 파일 · Git LFS</h3><p>.fbx, .png 텍스처처럼 용량이 큰 파일은 Git LFS로 관리합니다. 일반 저장소에는 파일당 100MB 제한이 있습니다.</p></article>
+    <article><h3>GitHub Education 학생 혜택</h3><p>만 13세 이상, 고등학생도 신청할 수 있습니다. 학생증 등으로 인증하면 학생용 개발 도구와 Copilot을 무료로 쓸 수 있습니다. 혜택 내용은 바뀔 수 있으니 공식 페이지에서 확인하세요.</p></article>
+    <article><h3>일주일에 한 번 Commit</h3><p>작은 수정이라도 꾸준히 남긴 기록이 성장의 증거가 됩니다. 프로필의 Contribution 그래프에 초록 칸으로 쌓입니다.</p></article>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="block" id="gloss">
+  <div class="chap">CHAPTER 11</div>
+  <h2>용어 사전</h2>
+  <div class="field gloss-search"><label for="gq">용어 찾기</label><input type="text" id="gq" placeholder="예: Fork, 브랜치, 배포" autocomplete="off"></div>
+  <div class="gloss" id="glossList"></div>
+</section>
+
+    </main>
+  </div>
+</div>
+<footer class="foot"><div class="wrap">GitHub 화면 이름은 업데이트에 따라 조금씩 달라질 수 있습니다. 공식 문서: docs.github.com · 통계 출처: GitHub Octoverse 2025, IDC (2026.6) · 안양공업고등학교 XR과 특강 자료</div></footer>
+
+<script>
+(() => {
+'use strict';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* 작은 Markdown 렌더러 (수업용) */
+function inline(s){
+  s=esc(s);
+  s=s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<span class="img">이미지: $1</span>');
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*]+)\*/g,'$1<i>$2</i>').replace(/`([^`]+)`/g,'<code>$1</code>');
+  return s;
+}
+function md(src){
+  const L=src.replace(/\r/g,'').split('\n'); let out='',list=false,code=false,para=[];
+  const flush=()=>{ if(para.length){ out+='<p>'+para.map(inline).join('<br>')+'</p>'; para=[]; } };
+  const closeList=()=>{ if(list){ out+='</ul>'; list=false; } };
+  for(const line of L){
+    if(/^```/.test(line)){ flush(); closeList(); out+= code?'</pre>':'<pre class="code">'; code=!code; continue; }
+    if(code){ out+=esc(line)+'\n'; continue; }
+    let m;
+    if((m=line.match(/^(#{1,3})\s+(.*)$/))){ flush(); closeList(); out+=`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`; continue; }
+    if((m=line.match(/^\s*[-*]\s+\[( |x|X)\]\s+(.*)$/))){ flush(); if(!list){out+='<ul style="list-style:none;padding-left:4px">';list=true;} out+=`<li>${m[1]===' '?'☐':'☑'} ${inline(m[2])}</li>`; continue; }
+    if((m=line.match(/^\s*[-*]\s+(.*)$/))){ flush(); if(!list){out+='<ul>';list=true;} out+=`<li>${inline(m[1])}</li>`; continue; }
+    if((m=line.match(/^>\s?(.*)$/))){ flush(); closeList(); out+=`<blockquote>${inline(m[1])}</blockquote>`; continue; }
+    if(!line.trim()){ flush(); closeList(); continue; }
+    closeList(); para.push(line);
+  }
+  flush(); closeList(); if(code) out+='</pre>'; return out;
+}
+const mdIn=$('#mdIn'), mdOut=$('#mdOut');
+try{ const s=localStorage.getItem('xr-guide-md'); if(s) mdIn.value=s; }catch(e){}
+const renderMd=()=>{ mdOut.innerHTML=md(mdIn.value); try{ localStorage.setItem('xr-guide-md',mdIn.value); }catch(e){} };
+mdIn.addEventListener('input',renderMd); renderMd();
+
+const G=[
+ ['Repository','저장소','프로젝트 파일과 모든 변경 기록을 담는 공간. 줄여서 repo.'],
+ ['README.md','리드미','저장소에 처음 온 사람을 위한 안내문. 저장소 첫 화면에 자동으로 보입니다.'],
+ ['Markdown','마크다운','# 제목, - 목록처럼 기호로 서식을 쓰는 간단한 문서 형식. 확장자 .md'],
+ ['Commit','커밋','설명이 붙은 저장 지점. 누가·언제·무엇을·왜 바꿨는지 남습니다.'],
+ ['Commit message','커밋 메시지','Commit에 붙이는 한 줄 설명. “무엇을 어떻게 바꿨는지” 씁니다.'],
+ ['Diff','디프','두 상태의 차이. 빨강은 지운 줄, 초록은 더한 줄.'],
+ ['History','히스토리','Commit이 쌓인 순서. 저장소의 “N Commits”에서 봅니다.'],
+ ['Branch','브랜치','한 저장소 안에서 갈라진 작업 흐름. 원본을 두고 새로 시도할 때.'],
+ ['main','메인','기본 브랜치. 보통 완성된 기준 상태를 둡니다.'],
+ ['Fork','포크','다른 사람의 저장소를 내 계정에 복사한 별도 저장소.'],
+ ['Clone','클론','GitHub 저장소를 내 컴퓨터로 내려받는 것.'],
+ ['Push','푸시','내 컴퓨터의 Commit을 GitHub로 올리는 것.'],
+ ['Pull','풀','GitHub의 새 변경을 내 컴퓨터로 가져오는 것.'],
+ ['Issue','이슈','할 일, 질문, 버그를 적고 이야기하는 게시판 글.'],
+ ['Pull Request (PR)','풀 리퀘스트','내 변경을 원본에 합쳐 달라는 제안. 검토와 대화가 이루어집니다.'],
+ ['Review','리뷰','PR의 바뀐 줄을 읽고 질문·제안하는 것.'],
+ ['Merge','머지','검토한 변경을 기준 브랜치에 합치는 것.'],
+ ['Conflict','충돌','같은 줄을 서로 다르게 고쳐 Git이 자동으로 합칠 수 없는 상태.'],
+ ['GitHub Pages','깃허브 페이지','저장소의 HTML 파일을 웹사이트로 무료 공개하는 기능. 주소는 아이디.github.io'],
+ ['Actions','액션','자동으로 실행되는 작업. Pages 배포 상태를 여기서 확인합니다.'],
+ ['Public / Private','공개 / 비공개','Public은 누구나 볼 수 있고, Private은 초대한 사람만 봅니다.'],
+ ['Owner','소유자','저장소를 가진 계정. 원본을 직접 수정할 권한이 있습니다.'],
+ ['.gitignore','깃이그노어','Git이 기록하지 않을 파일 목록. Unity의 Library 폴더 등을 뺄 때.'],
+ ['Git LFS','깃 LFS','큰 파일(3D 모델, 영상)을 따로 관리하는 확장 기능.'],
+ ['Star','스타','마음에 드는 저장소에 누르는 즐겨찾기.'],
+ ['2FA','2단계 인증','비밀번호에 더해 휴대폰 인증 앱이나 문자로 한 번 더 확인하는 로그인 방식.']
+];
+function renderG(q=''){ q=q.trim().toLowerCase(); $('#glossList').innerHTML=G.filter(g=>!q||g.join(' ').toLowerCase().includes(q)).map(g=>`<div><b>${esc(g[0])}</b><small>${esc(g[1])}</small><p>${esc(g[2])}</p></div>`).join('')||'<p style="color:var(--muted)">찾는 용어가 없습니다. 다른 말로 찾아보세요.</p>'; }
+$('#gq').addEventListener('input',e=>renderG(e.target.value)); renderG();
+
+if('IntersectionObserver' in window){ const links=[...document.querySelectorAll('.rail a')]; const io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting) links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id)); }),{rootMargin:'-35% 0px -60% 0px'}); document.querySelectorAll('section.block').forEach(s=>io.observe(s)); }
+})();
+</script>
+
+</body>
+</html>

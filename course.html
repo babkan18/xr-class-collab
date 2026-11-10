@@ -1,1 +1,205 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>수업 시작 · MY XR UNIVERSE</title><link rel="stylesheet" href="course/style.css"></head><body><a class="skip" href="#main">본문 바로가기</a><header><nav><strong>MY XR UNIVERSE</strong><a href="course.html" aria-current="page">수업 홈</a><a href="workbook.html" >웹워크북</a><a href="promptbook.html" >프롬프트북</a><a href="templates.html" >디자인 3종</a></nav></header><main id="main"><div class="hero"><span class="eyebrow">AI × GITHUB × XR</span><h1>내가 상상한 세계,<br>첫 번째 공개 링크.</h1><p class="lead">기술을 이해하고 AI와 함께 아이디어를 다듬어,<br>나만의 포트폴리오를 세상에 공개하는 150분.</p><div class="actions"><a class="button primary" href="workbook.html">내 워크북 시작</a><a class="button" href="promptbook.html">프롬프트 12개</a><a class="button" href="templates.html">디자인 고르기</a></div><p class="muted">고등학생 기초 실습 · 50분 × 3교시 · 설치 없이 브라우저 중심</p></div><div class="grid"><article class="card"><div class="num">01</div><h2>기술을 보는 눈</h2><p>AI와 XR의 역할을 살펴보고 관심 분야를 정합니다.</p><p class="muted">결과: 개인 저장소 + README + 첫 Commit</p></article><article class="card"><div class="num">02</div><h2>AI와 협력하는 힘</h2><p>작은 실험을 설계하고 친구와 아이디어를 검토합니다.</p><p class="muted">결과: 아이디어 파일 + Pull Request + 피드백</p></article><article class="card"><div class="num">03</div><h2>세상과 연결하기</h2><p>세 디자인 중 하나를 골라 나의 소개 페이지를 만듭니다.</p><p class="muted">결과: index.html + 공개 URL + 제작 기록</p></article></div><section class="card"><h2>수업의 흐름</h2><table><thead><tr><th>교시</th><th>시간 배분</th><th>완료 기준</th></tr></thead><tbody><tr><td>1교시</td><td>아이스브레이킹 10 / GitHub 이해 15 / 저장소·README 20 / 정리 5</td><td>내 저장소에서 첫 기록 확인</td></tr><tr><td>2교시</td><td>그림 전달 게임 5 / AI 기획·검토 15 / 협업 실습 25 / 정리 5</td><td>내 파일로 PR 보내고 피드백</td></tr><tr><td>3교시</td><td>시연·선택 5 / 수정 15 / 업로드·배포 10 / 검증 10 / 공유 10</td><td>웹 주소에서 내 내용 확인</td></tr></tbody></table><p class="muted">쉬는 시간은 별도입니다. 배포 대기 중에는 친구 검토와 발표 준비를 진행합니다.</p></section><section class="two"><div class="card"><h2>수업 전 준비</h2><p>GitHub 로그인 및 이메일 인증, 학교에서 허용한 AI 도구, 텍스트 편집기, 최신 브라우저를 준비합니다.</p><p>계정 가입은 학교·보호자 지침에 따라 사전에 준비합니다. 계정 문제가 있으면 짝 활동과 로컬 파일 제작으로 참여합니다.</p><a href="course/TEACHER_RUNBOOK.md">강사 운영 가이드</a></div><div class="card"><h2>협업 실습</h2><p>개인 홈페이지와 공동 실습용 Fork를 구분합니다. 강사가 배정한 01–11 번호의 파일 하나만 수정합니다.</p><a href="https://github.com/chloeisLovely/my-xr-universe/issues/1" target="_blank" rel="noopener">공동 미션 Issue #1</a><br><a href="https://github.com/chloeisLovely/my-xr-universe/tree/main/collaboration" target="_blank" rel="noopener">협업 양식과 예시</a></div></section><section class="card no-print"><h2>미션 타이머</h2><div id="timer" role="timer">05:00</div><div class="actions"><button data-min="5">5분</button><button data-min="10">10분</button><button data-min="15">15분</button><button id="startTimer">시작</button><button id="pauseTimer">일시정지</button><button id="resetTimer">초기화</button></div><p id="timerStatus" role="status" aria-live="polite">미션 시간을 선택하세요.</p></section><section><h2>최종 제출</h2><p>개인 저장소 URL, 공개 홈페이지 URL, 협업 PR URL, 워크북 기록을 강사가 안내한 제출 경로로 제출합니다. 이 페이지는 제출 서버가 아닙니다.</p><p class="source">진행 절차 참고: <a href="https://docs.github.com/en/get-started/using-github/hello-world">GitHub Hello World</a> / <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Pages 배포 설정</a></p></section></main><footer>AI × GitHub × XR · 50분 × 3교시 · 닉네임으로 만들고, 근거를 확인하고, 나의 변화 기록하기</footer><script>let duration=300,left=duration,end=0,tick=null;const display=()=>document.getElementById('timer').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');function pause(){clearInterval(tick);tick=null;}document.querySelectorAll('[data-min]').forEach(b=>b.onclick=()=>{pause();duration=left=Number(b.dataset.min)*60;display();document.getElementById('timerStatus').textContent=b.dataset.min+'분 미션 준비';});document.getElementById('startTimer').onclick=()=>{if(tick)return;if(left===0)left=duration;end=Date.now()+left*1000;document.getElementById('timerStatus').textContent='미션 진행 중';tick=setInterval(()=>{left=Math.max(0,Math.ceil((end-Date.now())/1000));display();if(left===0){pause();document.getElementById('timerStatus').textContent='시간이 끝났습니다. 지금까지의 결과를 확인하세요.';}},250);};document.getElementById('pauseTimer').onclick=()=>{pause();document.getElementById('timerStatus').textContent='일시정지';};document.getElementById('resetTimer').onclick=()=>{pause();left=duration;display();document.getElementById('timerStatus').textContent='타이머 초기화';};</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MY XR UNIVERSE 수업 홈</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Orbit&display=swap">
+<style>
+/* Layout: 왼쪽 미션 레일 + 오른쪽 노트 본문. 좁은 화면에서는 상단 칩 내비로 접힘 */
+:root{
+  --bg:#F4F6FA; --surface:#FFFFFF; --sunk:#EDF1F7; --ink:#14213D; --muted:#5B6680; --line:#D8DFEB;
+  --p0:#2F5BD3; --p1:#0E8C7F; --p2:#6A4CE0; --p3:#D94F2A; --tch:#55607A;
+  --p0-soft:#E6EDFC; --p1-soft:#E1F4F1; --p2-soft:#EDE9FC; --p3-soft:#FCEAE4;
+  --add:#1A7F37; --add-soft:#DAFBE1; --del:#CF222E; --del-soft:#FFEBE9;
+  --code-bg:#101A2E; --code-fg:#E4EAF5; --code-key:#7EE2D2; --code-str:#FFC98B; --code-pun:#9AA8C2;
+  --focus:#2F5BD3;
+  --f-display:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-brand:"Orbit","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --r:10px; --gap:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1322; --surface:#141E32; --sunk:#101929; --ink:#E7ECF6; --muted:#9AA6BE; --line:#26324A;
+  --p0:#7FA4FF; --p1:#3FD0BE; --p2:#A895FF; --p3:#FF8D6B; --tch:#A2ADC4;
+  --p0-soft:#1A2747; --p1-soft:#123331; --p2-soft:#231E45; --p3-soft:#3A2019;
+  --add:#4AC26B; --add-soft:#12301C; --del:#FF7B72; --del-soft:#3A1719;
+  --code-bg:#070D19; --focus:#7FA4FF; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--f-body);margin:0;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--p0)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+h1,h2,h3{line-height:1.3;text-wrap:balance;margin:0}
+code,kbd,pre{font-family:var(--f-mono);font-size:.92em}
+p code,li code,td code{background:var(--sunk);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--surface)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;min-height:60px;padding-block:8px;flex-wrap:wrap}
+.brand{font-family:var(--f-brand);font-weight:400;letter-spacing:.04em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand i{width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--accent)}
+.books{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.books a{font-size:13px;text-decoration:none;color:var(--muted);padding:6px 11px;border-radius:999px;border:1px solid transparent}
+.books a:hover{color:var(--ink);border-color:var(--line)}
+.books a[aria-current="page"]{color:var(--accent);border-color:var(--accent);font-weight:600}
+
+/* hero */
+.hero{padding-block:44px 28px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,50px);letter-spacing:-.025em;margin:10px 0 12px}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:62ch;margin:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+
+/* period tags */
+.tag{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.t0{background:var(--p0-soft);color:var(--p0)} .t1{background:var(--p1-soft);color:var(--p1)}
+.t2{background:var(--p2-soft);color:var(--p2)} .t3{background:var(--p3-soft);color:var(--p3)}
+
+/* two-col shell */
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;align-items:start;padding-block:8px 64px}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:flex;flex-direction:column;gap:2px}
+.rail a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--muted);font-size:14px;padding:8px 10px;border-radius:8px}
+.rail a:hover{background:var(--surface);color:var(--ink)}
+.rail a.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 0 0 1px var(--line)}
+.rail .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--line)}
+.rail .lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);padding:14px 10px 6px;text-transform:uppercase}
+main{min-width:0}
+
+section.block{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px clamp(18px,3vw,34px);margin-bottom:22px;scroll-margin-top:90px}
+.block-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.block h2{font-size:clamp(21px,2.6vw,26px)}
+.block .goal{color:var(--muted);margin:6px 0 18px;max-width:68ch}
+.block h3{font-size:17px;margin:26px 0 10px}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:var(--sunk);border-radius:10px;padding:14px 16px;font-size:15px;margin:16px 0}
+.callout .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:var(--accent);color:var(--surface)}
+.callout.warn .ic{background:var(--p3)}
+.callout p{margin:0}
+
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;min-width:0}
+.field label,.field .lab{font-weight:600;font-size:15px}
+.field .hint{font-size:13px;color:var(--muted)}
+input[type=text],input[type=url],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:8px;border:1px solid var(--line);margin-bottom:8px;cursor:pointer;background:var(--bg)}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+.check.done{border-color:var(--accent);background:var(--surface)}
+.check span small{display:block;color:var(--muted);font-size:13px}
+
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.primary:hover{filter:brightness(1.07);color:var(--surface)}
+.btn.small{font-size:13px;padding:6px 11px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* code */
+.code{background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.75;margin:0;white-space:pre}
+.code .k{color:var(--code-key)} .code .s{color:var(--code-str)} .code .p{color:var(--code-pun)} .code .c{color:#7C8AA6}
+.codewrap{position:relative;margin-bottom:18px}
+.codewrap .btn{position:absolute;top:10px;right:10px;background:#1E2A44;color:#E4EAF5;border-color:#33425F}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:14px;z-index:50;max-width:calc(100% - 32px)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:13px;color:var(--muted);font-weight:600}
+.tblwrap{overflow-x:auto}
+
+footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding-block:24px 40px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;flex-direction:row;overflow-x:auto;background:var(--bg);padding-block:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+  .rail .lbl{display:none}
+  .rail a{white-space:nowrap;flex:none}
+  .topbar{position:relative;top:0}
+}
+@media (max-width:620px){
+  .grid2,.grid4{grid-template-columns:minmax(0,1fr)}
+  .books{margin-left:0}
+  .hero{padding-block:28px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  .topbar,.rail,.no-print,.toast{display:none!important}
+  .shell{display:block} section.block{break-inside:avoid;border-color:#bbb}
+  body{background:#fff;color:#000}
+}
+
+:root{--accent:var(--p0)}
+.periods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:8px 0 34px}
+.period{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.period time{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.period h2{font-size:21px;margin:10px 0 6px}
+.period p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.period .proof{font-size:14px;border-top:1px solid var(--line);padding-top:10px}
+.period .proof b{color:var(--ink)}
+.links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:40px}
+.links a{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.links a:hover{border-color:var(--accent)}
+.links a b{font-size:17px}
+.links a span{color:var(--muted);font-size:14px}
+.links a small{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.h2{font-size:20px;margin:0 0 12px}
+@media (max-width:760px){.periods,.links{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="course.html"><i>✳</i>MY XR UNIVERSE</a>
+  <nav class="books" aria-label="수업 자료">
+    <a href="course.html" aria-current="page">수업 홈</a><a href="workbook.html">워크북</a><a href="promptbook.html">프롬프트북</a><a href="guide.html">GitHub 활용하기</a>
+  </nav>
+</div></header>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">AI × GitHub × XR · 안양공업고등학교 XR과</div>
+    <h1>내 아이디어가<br>웹 주소가 되는 날</h1>
+    <p class="lead">세 교시 동안 세 가지 증거를 남깁니다. 내 관심이 담긴 README, 친구에게 보낸 Pull Request, 그리고 내 내용이 보이는 웹 주소.</p>
+    <div class="meta-row"><span class="pill"><b>2026. 11. 11.(수)</b> 13:50–16:40</span><span class="pill">IT기계관 3층 XR과 실습실</span><span class="pill">강사 이경심</span></div>
+  </div>
+
+  <h2 class="h2">오늘의 흐름</h2>
+  <div class="periods">
+    <article class="period"><span class="tag t1">1교시 · 기록</span><time> 13:50–14:40</time><h2>나의 저장소와 README</h2><p>Git과 GitHub의 차이, 저장소의 구조, Commit·Diff·History</p><div class="proof">증거 ① <b>내 관심이 담긴 README</b></div></article>
+    <article class="period"><span class="tag t2">2교시 · 협업</span><time> 14:50–15:40</time><h2>AI로 기획하고 함께 바꾸기</h2><p>좋은 요청, AI 답변 검토, Issue · Fork · Branch · Pull Request</p><div class="proof">증거 ② <b>친구에게 보낸 Pull Request</b></div></article>
+    <article class="period"><span class="tag t3">3교시 · 공개</span><time> 15:50–16:40</time><h2>포트폴리오를 세상에</h2><p>디자인 선택, MY_PROFILE 여섯 곳 수정, GitHub Pages 배포와 테스트</p><div class="proof">증거 ③ <b>내 내용이 보이는 웹 주소</b></div></article>
+  </div>
+
+  <h2 class="h2">수업 자료</h2>
+  <div class="links">
+    <a href="workbook.html"><small>WORKBOOK</small><b>웹워크북</b><span>저장소·PR·홈페이지 주소와 내가 바꾼 이유를 기록하고 제출합니다.</span></a>
+    <a href="promptbook.html"><small>PROMPTBOOK</small><b>웹프롬프트북</b><span>빈칸을 채우면 완성되는 AI 요청 카드 14개와 답변 검토 체크리스트.</span></a>
+    <a href="guide.html"><small>WEB BOOK</small><b>GitHub 활용하기</b><span>GitHub 구조도, 화면 해부도, 단계별 따라 하기, 문제 해결, 용어 사전.</span></a>
+    <a href="templates.html"><small>DESIGN</small><b>디자인 3종 고르기</b><span>Cosmos · Creative Studio · Next Level 중 하나를 받습니다.</span></a>
+    <a href="https://github.com/chloeisLovely/my-xr-universe/issues/1" target="_blank" rel="noopener noreferrer"><small>ISSUE #1</small><b>협업 미션</b><span>2교시에 읽고 내 아이디어 파일을 제안합니다.</span></a>
+    <a href="https://github.com/chloeisLovely/my-xr-universe" target="_blank" rel="noopener noreferrer"><small>REPOSITORY</small><b>수업 저장소</b><span>Fork할 원본 저장소입니다.</span></a>
+  </div>
+</div>
+<footer class="foot"><div class="wrap">실명·연락처·학번은 어디에도 올리지 않습니다. 닉네임과 아이디어로 참여합니다.</div></footer>
+
+</body>
+</html>
